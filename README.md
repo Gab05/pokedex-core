@@ -17,7 +17,7 @@ Returns a single Pokémon if the route parameter `name` matches an existing Pok�
  - Pokémon names are lowercase, ie `squirtle`
  - Pokémon names with spaces or symbols have been replaced with underscores, as in `tapu_koko`and `type_null`
  - Pokémon with alternate forms are considered as different Pokémons and have distinguishable names, such as `minior_core` and `minior_meteorite`, or `oricorio_baile`, `oricorio_pompom`, `oricorio_sensu` and `oricorio_pau`
- - Mega evolutions have the prefix `mega_`, like `mega_kangaskhan`or `mega_mewtwo_x``
+ - Mega evolutions have the prefix `mega_`, like `mega_kangaskhan`or `mega_mewtwo_x`
  - Alolan Pokémons have the suffix `_alola`, for instance `ninetales_alola`
  
  
