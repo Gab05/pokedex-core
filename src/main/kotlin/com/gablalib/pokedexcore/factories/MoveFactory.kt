@@ -1,6 +1,7 @@
 package com.gablalib.pokedexcore.factories
 
 import com.gablalib.pokedexcore.models.move.Move
+import com.gablalib.pokedexcore.models.move.MoveCategory
 import com.gablalib.pokedexcore.models.type.Type
 import com.gablalib.pokedexcore.repositories.entities.MoveEntity
 
@@ -13,7 +14,11 @@ object MoveFactory {
     fun create(entity: MoveEntity?): Move {
         return if (entity != null) {
             Move(name = entity.name,
-                type = Type.valueOf(entity.type.toUpperCase()))
+                type = Type.valueOf(entity.type.toUpperCase()),
+                category = MoveCategory.valueOf(entity.category.toUpperCase()),
+                maxPP = entity.pp.toInt(),
+                power = entity.power.toInt(),
+                accuracy = entity.accuracy.toInt())
         } else {
             Move("")
         }

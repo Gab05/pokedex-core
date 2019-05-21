@@ -2,6 +2,7 @@ package factories
 
 import com.gablalib.pokedexcore.factories.MoveFactory
 import com.gablalib.pokedexcore.models.move.Move
+import com.gablalib.pokedexcore.models.move.MoveCategory
 import com.gablalib.pokedexcore.models.type.Type
 import com.gablalib.pokedexcore.repositories.entities.MoveEntity
 import io.mockk.mockkObject
@@ -14,7 +15,12 @@ class MoveFactoryTest {
 
     private val A_MOVE_NAME = "dragon_dance"
     private val A_MOVE_TYPE = "dragon"
-    private val A_MOVE_ENTITY = MoveEntity(name = A_MOVE_NAME, type = A_MOVE_TYPE)
+    private val A_MOVE_ENTITY = MoveEntity(name = A_MOVE_NAME,
+        type = A_MOVE_TYPE,
+        category = "OTHER",
+        pp = "15",
+        power = "80",
+        accuracy = "100")
     private val MOVES_ENTITY = arrayListOf(A_MOVE_ENTITY, A_MOVE_ENTITY)
 
     @Test
@@ -29,11 +35,16 @@ class MoveFactoryTest {
 
     @Test
     fun whenCreatingAnEntity_thenCorrectMoveIsCreated() {
-        val expected = Move(A_MOVE_NAME, Type.valueOf(A_MOVE_TYPE.toUpperCase()))
+        val expected = Move(A_MOVE_NAME, Type.valueOf(A_MOVE_TYPE.toUpperCase()), maxPP=15, power=80, accuracy = 100,
+            category = MoveCategory.OTHER)
         val actual = MoveFactory.create(A_MOVE_ENTITY)
 
         assertEquals(expected.name, actual.name)
         assertEquals(expected.type, actual.type)
+        assertEquals(expected.category, actual.category)
+        assertEquals(expected.maxPP, actual.maxPP)
+        assertEquals(expected.power, actual.power)
+        assertEquals(expected.accuracy, actual.accuracy)
     }
 
     @Test
