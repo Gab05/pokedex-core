@@ -1,0 +1,13 @@
+package com.gablalib.pokedexcore.models.move
+
+enum class MoveFlag {
+    PHYSICAL_CONTACT,
+    SOUND_TYPE,
+    PUNCH_TYPE,
+    SNATCHABLE,
+    Z_MOVE,
+    DEFROSTS_WHEN_USED,
+    REFLECTED_BY_MAGIC_COAT_MAGIC_BOUNCE,
+    BLOCKED_BY_PROTECT_DETECT,
+    COPYABLE_BY_MIRROR_MOVE
+}
