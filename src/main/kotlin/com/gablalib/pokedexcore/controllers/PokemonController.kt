@@ -1,11 +1,9 @@
 package com.gablalib.pokedexcore.controllers
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
 import com.gablalib.pokedexcore.services.PokemonService
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
+@CrossOrigin
 @RestController
 @RequestMapping("/pokemons")
 object PokemonController {
