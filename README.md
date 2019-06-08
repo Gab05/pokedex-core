@@ -1,4 +1,4 @@
-# pokedex-core
+# pokedex-core [![Build Status](https://travis-ci.org/Gab05/pokedex-core.svg?branch=master)](https://travis-ci.org/Gab05/pokedex-core)
 
 This project is a pokedex API. It serves information about requested Pokémon and moves. Pokémon data is about the 7th generation of the main game series and has been fetched from serebii.net, a trustworthy source about Pokémon.
 
