@@ -5,10 +5,12 @@ import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
 import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
+import com.gablalib.pokedexcore.repositories.entities.SpriteEntity
 
 object PokemonMongoRepo: PokemonRepo {
 
     val pokemonCollection = MongoDB.getDB().getCollection<PokemonEntity>("pokemon")
+    val spritesCollection = MongoDB.getDB().getCollection<SpriteEntity>("sprites")
 
     override fun findAll(): List<PokemonEntity> {
         return pokemonCollection.find().filterNotNull()
@@ -20,5 +22,9 @@ object PokemonMongoRepo: PokemonRepo {
 
     override fun findByNationalNumber(nationalNumber: Int): List<PokemonEntity> {
         return pokemonCollection.find(PokemonEntity::nationalNumber eq nationalNumber).filterNotNull()
+    }
+
+    fun findSprites(name: String): SpriteEntity? {
+        return spritesCollection.findOne(SpriteEntity::name eq name)
     }
 }

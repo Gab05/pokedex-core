@@ -3,7 +3,6 @@ package com.gablalib.pokedexcore.services
 import com.gablalib.pokedexcore.factories.PokemonFactory
 import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.repositories.PokemonMongoRepo
-import org.springframework.core.io.ClassPathResource
 
 object PokemonService {
 
@@ -23,12 +22,10 @@ object PokemonService {
     }
 
     fun getNormalSprite(name: String): ByteArray {
-        val resource = ClassPathResource("sprites/normal/$name.gif")
-        return resource.inputStream.readBytes()
+        return PokemonMongoRepo.findSprites(name)!!.normal
     }
 
     fun getShinySprite(name: String): ByteArray {
-        val resource = ClassPathResource("/sprites/shiny/$name.gif")
-        return resource.inputStream.readBytes()
+        return PokemonMongoRepo.findSprites(name)!!.shiny
     }
 }
