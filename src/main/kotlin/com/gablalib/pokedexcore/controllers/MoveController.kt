@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/moves")
 object MoveController {
 
-    @GetMapping("/")
+    @GetMapping("")
     fun moves() = MoveService.getAllMoves()
 
     @GetMapping("/{name}")
