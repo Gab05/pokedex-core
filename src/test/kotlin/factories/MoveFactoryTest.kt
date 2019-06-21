@@ -18,7 +18,7 @@ class MoveFactoryTest {
     private val A_MOVE_ENTITY = MoveEntity(name = A_MOVE_NAME,
         type = A_MOVE_TYPE,
         category = "OTHER",
-        pp = "15",
+        PP = "15",
         power = "80",
         accuracy = "100")
     private val MOVES_ENTITY = arrayListOf(A_MOVE_ENTITY, A_MOVE_ENTITY)
@@ -35,14 +35,14 @@ class MoveFactoryTest {
 
     @Test
     fun whenCreatingAnEntity_thenCorrectMoveIsCreated() {
-        val expected = Move(A_MOVE_NAME, Type.valueOf(A_MOVE_TYPE.toUpperCase()), maxPP=15, power=80, accuracy = 100,
+        val expected = Move(A_MOVE_NAME, Type.valueOf(A_MOVE_TYPE.toUpperCase()), PP=15, power=80, accuracy = 100,
             category = MoveCategory.OTHER)
         val actual = MoveFactory.create(A_MOVE_ENTITY)
 
         assertEquals(expected.name, actual.name)
         assertEquals(expected.type, actual.type)
         assertEquals(expected.category, actual.category)
-        assertEquals(expected.maxPP, actual.maxPP)
+        assertEquals(expected.PP, actual.PP)
         assertEquals(expected.power, actual.power)
         assertEquals(expected.accuracy, actual.accuracy)
     }

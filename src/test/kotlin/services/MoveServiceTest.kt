@@ -21,7 +21,7 @@ class MoveServiceTest {
     private val A_MOVE_ENTITY = MoveEntity(name = A_MOVE_NAME,
         type = A_MOVE_TYPE,
         category = "PHYSICAL",
-        pp = "30",
+        PP = "30",
         power = "30",
         accuracy = "100")
     private val A_MOVE = Move(A_MOVE_NAME)
