@@ -16,7 +16,7 @@ object MoveFactory {
             Move(name = entity.name,
                 type = Type.valueOf(entity.type.toUpperCase()),
                 category = MoveCategory.valueOf(entity.category.toUpperCase()),
-                PP = entity.PP.toInt(),
+                PP = entity.pp.toInt(),
                 power = entity.power.toInt(),
                 accuracy = entity.accuracy.toInt())
         } else {
