@@ -18,7 +18,7 @@ class MoveFactoryTest {
     private val A_MOVE_ENTITY = MoveEntity(name = A_MOVE_NAME,
         type = A_MOVE_TYPE,
         category = "OTHER",
-        PP = "15",
+        pp = "15",
         power = "80",
         accuracy = "100")
     private val MOVES_ENTITY = arrayListOf(A_MOVE_ENTITY, A_MOVE_ENTITY)
