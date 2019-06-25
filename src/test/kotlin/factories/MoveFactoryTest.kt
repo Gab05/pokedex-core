@@ -15,12 +15,14 @@ class MoveFactoryTest {
 
     private val A_MOVE_NAME = "dragon_dance"
     private val A_MOVE_TYPE = "dragon"
-    private val A_MOVE_ENTITY = MoveEntity(name = A_MOVE_NAME,
+    private val A_MOVE_ENTITY = MoveEntity(
+        name = A_MOVE_NAME,
         type = A_MOVE_TYPE,
         category = "OTHER",
         pp = "15",
         power = "80",
-        accuracy = "100")
+        accuracy = "100",
+        battleDescription = "")
     private val MOVES_ENTITY = arrayListOf(A_MOVE_ENTITY, A_MOVE_ENTITY)
 
     @Test

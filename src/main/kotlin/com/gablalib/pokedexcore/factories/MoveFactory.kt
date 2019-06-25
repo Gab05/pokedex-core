@@ -18,7 +18,8 @@ object MoveFactory {
                 category = MoveCategory.valueOf(entity.category.toUpperCase()),
                 PP = entity.pp.toInt(),
                 power = entity.power.toInt(),
-                accuracy = entity.accuracy.toInt())
+                accuracy = entity.accuracy.toInt(),
+                battleDescription = entity.battleDescription)
         } else {
             Move("")
         }

@@ -5,4 +5,5 @@ data class MoveEntity(val name: String,
                       val category: String,
                       val pp: String,
                       val power: String,
-                      val accuracy: String)
+                      val accuracy: String,
+                      val battleDescription: String)

@@ -18,12 +18,14 @@ class MoveServiceTest {
 
     private val A_MOVE_NAME = "double_kick"
     private val A_MOVE_TYPE = "fighting"
-    private val A_MOVE_ENTITY = MoveEntity(name = A_MOVE_NAME,
+    private val A_MOVE_ENTITY = MoveEntity(
+        name = A_MOVE_NAME,
         type = A_MOVE_TYPE,
         category = "PHYSICAL",
         pp = "30",
         power = "30",
-        accuracy = "100")
+        accuracy = "100",
+        battleDescription = "")
     private val A_MOVE = Move(A_MOVE_NAME)
     private val MOVES = arrayListOf(A_MOVE, A_MOVE)
     private val MOVES_ENTITY = arrayListOf(A_MOVE_ENTITY, A_MOVE_ENTITY)
