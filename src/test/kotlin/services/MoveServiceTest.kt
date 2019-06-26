@@ -25,7 +25,9 @@ class MoveServiceTest {
         pp = "30",
         power = "30",
         accuracy = "100",
-        battleDescription = "")
+        battleDescription = "",
+        battleEffect = "No effect.",
+        battleEffectRate = "--")
     private val A_MOVE = Move(A_MOVE_NAME)
     private val MOVES = arrayListOf(A_MOVE, A_MOVE)
     private val MOVES_ENTITY = arrayListOf(A_MOVE_ENTITY, A_MOVE_ENTITY)

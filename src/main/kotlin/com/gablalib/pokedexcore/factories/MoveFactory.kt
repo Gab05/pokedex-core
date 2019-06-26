@@ -19,7 +19,9 @@ object MoveFactory {
                 PP = entity.pp.toInt(),
                 power = entity.power.toInt(),
                 accuracy = entity.accuracy.toInt(),
-                battleDescription = entity.battleDescription)
+                battleDescription = entity.battleDescription,
+                battleEffect = entity.battleEffect,
+                battleEffectRate = entity.battleEffectRate)
         } else {
             Move("")
         }
