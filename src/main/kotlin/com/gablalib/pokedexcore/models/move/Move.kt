@@ -4,7 +4,7 @@ import com.gablalib.pokedexcore.models.type.Type
 
 data class Move(val name: String,
                 val type: Type = Type.NORMAL,
-                val PP: Int = 40,
+                val PP: Int = 0,
                 val power: Int = 0,
                 val zMovePower: Int = 0,
                 val accuracy: Int = 100,
