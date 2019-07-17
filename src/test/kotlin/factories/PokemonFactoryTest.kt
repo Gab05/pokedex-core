@@ -1,6 +1,8 @@
 package factories
 
 import com.gablalib.pokedexcore.factories.PokemonFactory
+import com.gablalib.pokedexcore.models.move.LevelUpMove
+import com.gablalib.pokedexcore.models.move.TmMove
 import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.models.pokemon.gender.GenderRatio
 import com.gablalib.pokedexcore.models.pokemon.stats.Stats
@@ -22,6 +24,8 @@ class PokemonFactoryTest {
         stats = Stats(108, 130, 95, 80, 85, 102),
         nationalNumber = A_NATIONAL_NUMBER,
         type = arrayOf("dragon", "ground"),
+        levelUpMoves = arrayOf(LevelUpMove("tackle", "1")),
+        tmMoves = arrayOf(TmMove("dragon_claw", "02")),
         genderRatio = GenderRatio("50", "50"),
         weight = Weight(lbs = "209.4", kg = "95"),
         captureRate = "45"
@@ -44,7 +48,9 @@ class PokemonFactoryTest {
             name = A_POKEMON_NAME,
             baseStats = Stats(108, 130, 95, 80, 85, 102),
             nationalNumber = A_NATIONAL_NUMBER,
-            typing = arrayListOf(Type.DRAGON, Type.GROUND),
+            typing = hashSetOf(Type.DRAGON, Type.GROUND),
+            levelUpMoves = arrayListOf(LevelUpMove("tackle", "1")),
+            tmMoves = arrayListOf(TmMove("dragon_claw", "02")),
             weight = Weight(lbs = "209.4", kg = "95"),
             genderRatio = GenderRatio("50", "50"),
             captureRate = "45"

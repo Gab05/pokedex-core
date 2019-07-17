@@ -26,6 +26,8 @@ class PokemonServiceTest {
         stats = Stats(),
         nationalNumber = A_NATIONAL_NUMBER,
         type = arrayOf("water"),
+        levelUpMoves = arrayOf(),
+        tmMoves = arrayOf(),
         genderRatio = GenderRatio(),
         weight = Weight(),
         captureRate = String()

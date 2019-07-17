@@ -10,7 +10,7 @@ class PokemonTest {
 
     private val bulbasaur = Pokemon(
         "Bulbasaur",
-        typing = arrayListOf(
+        typing = hashSetOf(
             Type.GRASS,
             Type.POISON
         )
