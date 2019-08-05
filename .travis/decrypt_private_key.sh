@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
 openssl aes-256-cbc -K $encrypted_4bcfaff873d9_key -iv $encrypted_4bcfaff873d9_iv -in github_deploy_key.enc -out github_deploy_key -d
-ls
+chmod 400 github_deploy_key
+mv github_deploy_key ~/.ssh/
