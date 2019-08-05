@@ -1,5 +1,7 @@
 language: java
+before_install:
+  - .travis/decrypt_private_key.sh
 jobs:
   include:
     - stage: deploy
-      script: .travis/push_develop_to_master.sh
+      script: ./gradlew test &&  .travis/push_develop_to_master.sh
