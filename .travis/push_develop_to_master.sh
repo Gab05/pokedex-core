@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-echo "\nCloning git repo..."
-cd ..
-
 # The filename of the key is the one specified in the ./decrypt_private_key.sh script
 ssh-agent bash -c 'ssh-add ~/.ssh/github_deploy_key; git clone --branch=master git@github.com:Gab05/pokedex-core.git Gab05/pokedex-core-copy'
 
@@ -25,5 +22,4 @@ git merge --squash origin develop
 echo "Push to origin/master..."
 git push origin master
 
-cd ..
 echo "Done! develop merged into master."
