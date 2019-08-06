@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # The filename of the key is the one specified in the ./decrypt_private_key.sh script
-ssh-agent bash -c 'ssh-add ~/.ssh/github_deploy_key; git clone --branch=master git@github.com:Gab05/pokedex-core.git Gab05/pokedex-core-copy'
+ssh-agent bash -c 'ssh-add ~/.ssh/github_deploy_key; echo "\n"; git clone --branch=master git@github.com:Gab05/pokedex-core.git Gab05/pokedex-core-copy'
+echo "\n"
 
 cd Gab05/pokedex-core-copy
 
