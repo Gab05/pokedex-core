@@ -6,7 +6,6 @@ git clone --branch=master git@github.com:Gab05/pokedex-core.git Gab05/pokedex-co
 cd Gab05/pokedex-core-copy
 
 echo "Fetching remote branches..."
-git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
 git fetch
 
 echo "Create tracking branches..."
@@ -17,7 +16,7 @@ done
 
 echo "Checkout master branch and merge from origin/develop..."
 git checkout master
-git merge --squash origin develop
+git merge --squash origin/develop
 
 echo "Push to origin/master..."
 git push origin master
