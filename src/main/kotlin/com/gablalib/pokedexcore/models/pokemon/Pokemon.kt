@@ -21,13 +21,8 @@ data class Pokemon(val name: String,
                    val tmMoves: List<TmMove> = ArrayList(),
                    val eggMoves: List<String> = ArrayList(),
                    val baseStats: Stats = Stats(),
-                   val baseExpGrowth: ExpGrowth = ExpGrowth.FAST,
-                   val baseEggSteps: Int = 0,
-                   val baseHappiness: Int = 0,
                    val genderRatio: GenderRatio = GenderRatio(),
-                   val captureRate: String = "255",
-                   val eggGroup: List<EggGroup> = ArrayList(),
-                   val effortValuesYielded: Stats = Stats()) {
+                   val captureRate: String = "255") {
 
     fun isOfType(type: Type): Boolean {
         return typing.contains(type)

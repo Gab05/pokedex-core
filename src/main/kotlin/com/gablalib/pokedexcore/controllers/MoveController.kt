@@ -1,5 +1,6 @@
 package com.gablalib.pokedexcore.controllers
 
+import com.gablalib.pokedexcore.controllers.requests.MovesRequest
 import com.gablalib.pokedexcore.models.move.Move
 import com.gablalib.pokedexcore.services.MoveService
 import org.springframework.web.bind.annotation.*
@@ -9,12 +10,9 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/moves")
 object MoveController {
 
-    @GetMapping("")
-    fun moves(): List<Move> = MoveService.getAllMoves()
-
     @GetMapping("/{name}")
     fun moveName(@PathVariable name: String): Move = MoveService.getMoveByName(name)
 
-    @GetMapping("/list")
-    fun movesFromNameList(@RequestBody names: List<String>): List<Move> = MoveService.getMovesByNameList(names)
+    @GetMapping("")
+    fun moves(@RequestBody request: MovesRequest): List<Move> = MoveService.getAllMoves()
 }
