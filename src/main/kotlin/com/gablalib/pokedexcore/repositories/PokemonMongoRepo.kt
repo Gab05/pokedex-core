@@ -9,8 +9,8 @@ import com.gablalib.pokedexcore.repositories.entities.SpriteEntity
 
 object PokemonMongoRepo: PokemonRepo {
 
-    val pokemonCollection = MongoDB.getDB().getCollection<PokemonEntity>("pokemon")
-    val spritesCollection = MongoDB.getDB().getCollection<SpriteEntity>("sprites")
+    private val pokemonCollection = MongoDB.getDB().getCollection<PokemonEntity>("pokemon")
+    private val spritesCollection = MongoDB.getDB().getCollection<SpriteEntity>("sprites")
 
     override fun findAll(): List<PokemonEntity> {
         return pokemonCollection.find().filterNotNull()

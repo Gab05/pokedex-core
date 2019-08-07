@@ -1,17 +1,14 @@
 package services
 
 import com.gablalib.pokedexcore.factories.PokemonFactory
-import com.gablalib.pokedexcore.models.pokemon.Pokemon
-import com.gablalib.pokedexcore.models.pokemon.gender.GenderRatio
-import com.gablalib.pokedexcore.models.pokemon.stats.Stats
-import com.gablalib.pokedexcore.models.pokemon.weight.Weight
 import com.gablalib.pokedexcore.repositories.PokemonMongoRepo
-import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
 import com.gablalib.pokedexcore.services.PokemonService
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
+import mocks.PokemonEntityMocks
+import mocks.PokemonMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -19,33 +16,30 @@ import kotlin.test.expect
 
 class PokemonServiceTest {
 
-    private val A_POKEMON_NAME = "squirtle"
-    private val A_NATIONAL_NUMBER = 9
-    private val A_POKEMON_ENTITY = PokemonEntity(
-        name = A_POKEMON_NAME,
-        stats = Stats(),
-        nationalNumber = A_NATIONAL_NUMBER,
-        type = arrayOf("water"),
-        levelUpMoves = arrayOf(),
-        tmMoves = arrayOf(),
-        genderRatio = GenderRatio(),
-        weight = Weight(),
-        captureRate = String()
-        )
-    private val A_POKEMON = Pokemon(A_POKEMON_NAME)
-    private val POKEMONS = arrayListOf(A_POKEMON, A_POKEMON)
-    private val POKEMONS_ENTITY = arrayListOf(A_POKEMON_ENTITY, A_POKEMON_ENTITY)
+    private val SQUIRTLE_ENTITY = PokemonEntityMocks.squirtle()
+    private val GARCHOMP_ENTITY = PokemonEntityMocks.garchomp()
+
+    private val SQUIRTLE = PokemonMocks.squirtle()
+    private val GARCHOMP = PokemonMocks.garchomp()
+
+    private val GARCHOMP_NAME = "garchomp"
+    private val SQUIRTLE_NATIONAL_NUMBER = 7
+
+    private val ENTITIES = arrayListOf(SQUIRTLE_ENTITY, GARCHOMP_ENTITY)
+    private val POKEMONS = arrayListOf(SQUIRTLE, GARCHOMP)
 
     @Before
     fun init() {
         mockkObject(PokemonMongoRepo)
-        every { PokemonMongoRepo.findAll() } returns POKEMONS_ENTITY
-        every { PokemonMongoRepo.findByName(A_POKEMON_NAME) } returns A_POKEMON_ENTITY
-        every { PokemonMongoRepo.findByNationalNumber(A_NATIONAL_NUMBER) } returns POKEMONS_ENTITY
+        every { PokemonMongoRepo.findAll() } returns ENTITIES
+        every { PokemonMongoRepo.findByName(GARCHOMP_NAME) } returns GARCHOMP_ENTITY
+        every { PokemonMongoRepo.findByNationalNumber(SQUIRTLE_NATIONAL_NUMBER) } returns arrayListOf(SQUIRTLE_ENTITY)
 
         mockkObject(PokemonFactory)
-        every { PokemonFactory.create(A_POKEMON_ENTITY) } returns A_POKEMON
-        every { PokemonFactory.createAll(POKEMONS_ENTITY) } returns POKEMONS
+        every { PokemonFactory.create(SQUIRTLE_ENTITY) } returns SQUIRTLE
+        every { PokemonFactory.create(GARCHOMP_ENTITY) } returns GARCHOMP
+        every { PokemonFactory.createAll(arrayListOf(SQUIRTLE_ENTITY)) } returns arrayListOf(SQUIRTLE)
+        every { PokemonFactory.createAll(ENTITIES) } returns POKEMONS
     }
 
     @After
@@ -60,26 +54,26 @@ class PokemonServiceTest {
         }
 
         verify { PokemonMongoRepo.findAll() }
-        verify { PokemonFactory.createAll(POKEMONS_ENTITY) }
+        verify { PokemonFactory.createAll(ENTITIES) }
     }
 
     @Test
     fun whenGettingPokemonByName() {
-        expect(A_POKEMON, "should return a Pokemon with matching name") {
-            PokemonService.getPokemonByName(A_POKEMON_NAME)
+        expect(GARCHOMP, "should return a Pokemon with matching name") {
+            PokemonService.getPokemonByName(GARCHOMP_NAME)
         }
 
-        verify { PokemonMongoRepo.findByName(A_POKEMON_NAME) }
-        verify { PokemonFactory.create(A_POKEMON_ENTITY) }
+        verify { PokemonMongoRepo.findByName(GARCHOMP_NAME) }
+        verify { PokemonFactory.create(GARCHOMP_ENTITY) }
     }
 
     @Test
     fun whenGettingPokemonByNationalNumber() {
-        expect(POKEMONS, "should return a Pokemon list") {
-            PokemonService.getPokemonsByNationalNumber(A_NATIONAL_NUMBER)
+        expect(arrayListOf(SQUIRTLE), "should return a Pokemon list") {
+            PokemonService.getPokemonsByNationalNumber(SQUIRTLE_NATIONAL_NUMBER)
         }
 
-        verify { PokemonMongoRepo.findByNationalNumber(A_NATIONAL_NUMBER) }
-        verify { PokemonFactory.createAll(POKEMONS_ENTITY) }
+        verify { PokemonMongoRepo.findByNationalNumber(SQUIRTLE_NATIONAL_NUMBER) }
+        verify { PokemonFactory.createAll(arrayListOf(SQUIRTLE_ENTITY)) }
     }
 }

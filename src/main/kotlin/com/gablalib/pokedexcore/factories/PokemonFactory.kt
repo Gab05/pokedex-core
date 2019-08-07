@@ -19,9 +19,11 @@ object PokemonFactory {
                 typing = HashSet(entity.type.map { rawType -> Type.valueOf(rawType.toUpperCase()) }),
                 levelUpMoves = ArrayList(entity.levelUpMoves.map { move -> move }),
                 tmMoves = ArrayList(entity.tmMoves.map { move -> move }),
+                eggMoves = ArrayList(entity.eggMoves.map { move -> move }),
                 weight = entity.weight,
                 captureRate = entity.captureRate,
-                genderRatio = entity.genderRatio
+                genderRatio = entity.genderRatio,
+                abilities = entity.abilities
             )
         } else {
             Pokemon("")

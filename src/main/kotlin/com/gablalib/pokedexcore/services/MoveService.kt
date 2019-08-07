@@ -15,4 +15,9 @@ object MoveService {
         val entity = MoveMongoRepo.findByName(name)
         return MoveFactory.create(entity)
     }
+
+    fun getMovesByNameList(names: List<String>): List<Move> {
+        val entities = MoveMongoRepo.findAllByNameList(names)
+        return MoveFactory.createAll(entities)
+    }
 }

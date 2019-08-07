@@ -12,68 +12,48 @@ import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import mocks.PokemonEntityMocks
+import mocks.PokemonMocks
 import org.junit.Test
 import kotlin.test.assertEquals
 
 class PokemonFactoryTest {
 
-    private val A_POKEMON_NAME = "garchomp"
-    private val A_NATIONAL_NUMBER = 445
-    private val A_POKEMON_ENTITY = PokemonEntity(
-        name = A_POKEMON_NAME,
-        stats = Stats(108, 130, 95, 80, 85, 102),
-        nationalNumber = A_NATIONAL_NUMBER,
-        type = arrayOf("dragon", "ground"),
-        levelUpMoves = arrayOf(LevelUpMove("tackle", "1")),
-        tmMoves = arrayOf(TmMove("dragon_claw", "02")),
-        genderRatio = GenderRatio("50", "50"),
-        weight = Weight(lbs = "209.4", kg = "95"),
-        captureRate = "45"
-    )
-    private val POKEMONS_ENTITY = arrayListOf(A_POKEMON_ENTITY, A_POKEMON_ENTITY)
+    private val SQUIRTLE = PokemonMocks.squirtle()
+
+    private val SQUIRTLE_ENTITY = PokemonEntityMocks.squirtle()
+    private val GARCHOMP_ENTITY = PokemonEntityMocks.garchomp()
 
     @Test
     fun whenCreatingEntities_thenCreateIsCalledOnEveryEntity() {
         mockkObject(PokemonFactory)
 
-        PokemonFactory.createAll(POKEMONS_ENTITY)
-        verify(exactly = 2) { PokemonFactory.create(A_POKEMON_ENTITY) }
+        PokemonFactory.createAll(arrayListOf(SQUIRTLE_ENTITY, GARCHOMP_ENTITY))
+
+        verify {
+            PokemonFactory.create(SQUIRTLE_ENTITY)
+            PokemonFactory.create(GARCHOMP_ENTITY)
+        }
 
         unmockkObject(PokemonFactory)
     }
 
     @Test
     fun whenCreatingAnEntity_thenCorrectPokemonIsCreated() {
-        val expected = Pokemon(
-            name = A_POKEMON_NAME,
-            baseStats = Stats(108, 130, 95, 80, 85, 102),
-            nationalNumber = A_NATIONAL_NUMBER,
-            typing = hashSetOf(Type.DRAGON, Type.GROUND),
-            levelUpMoves = arrayListOf(LevelUpMove("tackle", "1")),
-            tmMoves = arrayListOf(TmMove("dragon_claw", "02")),
-            weight = Weight(lbs = "209.4", kg = "95"),
-            genderRatio = GenderRatio("50", "50"),
-            captureRate = "45"
-        )
-        val actual = PokemonFactory.create(A_POKEMON_ENTITY)
+        val expected = SQUIRTLE
+        val actual = PokemonFactory.create(SQUIRTLE_ENTITY)
 
         assertEquals(expected.name, actual.name)
         assertEquals(expected.typing, actual.typing)
         assertEquals(expected.nationalNumber, actual.nationalNumber)
+        assertEquals(expected.abilities, actual.abilities)
+        assertEquals(expected.levelUpMoves, actual.levelUpMoves)
+        assertEquals(expected.tmMoves, actual.tmMoves)
+        assertEquals(expected.eggMoves, actual.eggMoves)
         assertEquals(expected.captureRate, actual.captureRate)
-
-        assertEquals(expected.weight.kg, actual.weight.kg)
-        assertEquals(expected.weight.lbs, actual.weight.lbs)
-
-        assertEquals(expected.genderRatio.male, actual.genderRatio.male)
-        assertEquals(expected.genderRatio.female, actual.genderRatio.female)
-
-        assertEquals(expected.baseStats.hp, actual.baseStats.hp)
-        assertEquals(expected.baseStats.atk, actual.baseStats.atk)
-        assertEquals(expected.baseStats.def, actual.baseStats.def)
-        assertEquals(expected.baseStats.spatk, actual.baseStats.spatk)
-        assertEquals(expected.baseStats.spdef, actual.baseStats.spdef)
-        assertEquals(expected.baseStats.speed, actual.baseStats.speed)
+        assertEquals(expected.weight, actual.weight)
+        assertEquals(expected.genderRatio, actual.genderRatio)
+        assertEquals(expected.baseStats, actual.baseStats)
     }
 
     @Test

@@ -1,1 +1,5 @@
 language: java
+jobs:
+  include:
+    - stage: deploy
+      script: ./gradlew test &&  .travis/push_develop_to_master.sh
