@@ -14,4 +14,7 @@ object MoveController {
 
     @GetMapping("/{name}")
     fun moveName(@PathVariable name: String): Move = MoveService.getMoveByName(name)
+
+    @GetMapping("/list")
+    fun movesFromNameList(@RequestBody names: List<String>): List<Move> = MoveService.getMovesByNameList(names)
 }

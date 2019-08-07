@@ -20,5 +20,3 @@ git merge --squash origin/develop
 
 echo "Push to origin/master..."
 git push origin master
-
-echo "Done! develop merged into master."
