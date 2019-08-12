@@ -1,12 +1,9 @@
 package controllers
 
 import com.gablalib.pokedexcore.controllers.MoveController
-import com.gablalib.pokedexcore.controllers.PokemonController
 import com.gablalib.pokedexcore.controllers.requests.MovesRequest
 import com.gablalib.pokedexcore.models.move.Move
-import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.services.MoveService
-import com.gablalib.pokedexcore.services.PokemonService
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
@@ -35,7 +32,7 @@ class MoveControllerTest {
 
     @Test
     fun whenGettingAllMoves() {
-        expect(ArrayList(), "should return an ArrayList<Move>") {
+        expect(ArrayList(), "should return a list of moves") {
             MoveController.moves(MovesRequest(null))
         }
 
