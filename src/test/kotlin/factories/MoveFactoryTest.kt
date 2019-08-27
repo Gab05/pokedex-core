@@ -54,12 +54,4 @@ class MoveFactoryTest {
         assertEquals(expected.battleEffect, actual.battleEffect)
         assertEquals(expected.battleEffectRate, actual.battleEffectRate)
     }
-
-    @Test
-    fun whenCreatingNullEntity_thenDefaultMoveIsReturned() {
-        val expected = Move("")
-        val actual = MoveFactory.create(null)
-
-        assertEquals(expected.name, actual.name)
-    }
 }

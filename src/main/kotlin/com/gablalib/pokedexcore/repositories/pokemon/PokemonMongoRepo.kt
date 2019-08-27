@@ -1,4 +1,4 @@
-package com.gablalib.pokedexcore.repositories
+package com.gablalib.pokedexcore.repositories.pokemon
 
 import com.gablalib.pokedexcore.database.MongoDB
 import org.litote.kmongo.eq

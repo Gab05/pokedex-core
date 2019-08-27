@@ -2,7 +2,7 @@ package com.gablalib.pokedexcore.services
 
 import com.gablalib.pokedexcore.factories.PokemonFactory
 import com.gablalib.pokedexcore.models.pokemon.Pokemon
-import com.gablalib.pokedexcore.repositories.PokemonMongoRepo
+import com.gablalib.pokedexcore.repositories.pokemon.PokemonMongoRepo
 
 object PokemonService {
 

@@ -29,7 +29,7 @@ The application is deployed in pre-prod at https://gablalib-pokedex-core.herokua
    }
  }
  ```
- Every field is optional. Prioritizes topmost. Filter applies logical `AND` to fields.
+ Every filter field is optional. Prioritizes topmost. Filter applies logical `AND` to fields.
 
 ---
 

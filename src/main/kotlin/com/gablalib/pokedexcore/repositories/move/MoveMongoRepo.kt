@@ -1,4 +1,4 @@
-package com.gablalib.pokedexcore.repositories
+package com.gablalib.pokedexcore.repositories.move
 
 import com.gablalib.pokedexcore.database.MongoDB
 import com.gablalib.pokedexcore.repositories.entities.MoveEntity
@@ -11,7 +11,7 @@ object MoveMongoRepo: MoveRepo {
 
     private val moveCollection = MongoDB.getDB().getCollection<MoveEntity>("move")
 
-    override fun findAll(): List<MoveEntity?> {
+    override fun findAll(): List<MoveEntity> {
         return moveCollection.find().filterNotNull()
     }
 
