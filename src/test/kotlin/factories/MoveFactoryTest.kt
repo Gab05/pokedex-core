@@ -1,6 +1,6 @@
 package factories
 
-import com.gablalib.pokedexcore.factories.MoveFactory
+import com.gablalib.pokedexcore.factories.move.MoveFactory
 import com.gablalib.pokedexcore.models.move.Move
 import com.gablalib.pokedexcore.models.move.MoveCategory
 import com.gablalib.pokedexcore.models.type.Type

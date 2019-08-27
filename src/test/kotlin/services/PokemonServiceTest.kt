@@ -1,6 +1,6 @@
 package services
 
-import com.gablalib.pokedexcore.factories.PokemonFactory
+import com.gablalib.pokedexcore.factories.pokemon.PokemonFactory
 import com.gablalib.pokedexcore.repositories.pokemon.PokemonMongoRepo
 import com.gablalib.pokedexcore.services.PokemonService
 import io.mockk.every

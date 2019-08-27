@@ -1,14 +1,7 @@
 package factories
 
-import com.gablalib.pokedexcore.factories.PokemonFactory
-import com.gablalib.pokedexcore.models.move.LevelUpMove
-import com.gablalib.pokedexcore.models.move.TmMove
+import com.gablalib.pokedexcore.factories.pokemon.PokemonFactory
 import com.gablalib.pokedexcore.models.pokemon.Pokemon
-import com.gablalib.pokedexcore.models.pokemon.gender.GenderRatio
-import com.gablalib.pokedexcore.models.pokemon.stats.Stats
-import com.gablalib.pokedexcore.models.pokemon.weight.Weight
-import com.gablalib.pokedexcore.models.type.Type
-import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify

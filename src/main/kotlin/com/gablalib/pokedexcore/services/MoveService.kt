@@ -1,6 +1,7 @@
 package com.gablalib.pokedexcore.services
 
-import com.gablalib.pokedexcore.factories.MoveFactory
+import com.gablalib.pokedexcore.factories.move.MoveFactory
+import com.gablalib.pokedexcore.factories.move.MoveMongoFilterFactory
 import com.gablalib.pokedexcore.filters.MoveFilter
 import com.gablalib.pokedexcore.models.move.Move
 import com.gablalib.pokedexcore.repositories.move.MoveMongoRepo
@@ -18,6 +19,8 @@ object MoveService {
     }
 
     fun getMovesByFilter(filter: MoveFilter): List<Move> {
-        return ArrayList() // TODO
+        val mongoFilter = MoveMongoFilterFactory.create(filter)
+        val entities = MoveMongoRepo.findAllByFilter(mongoFilter)
+        return MoveFactory.createAll(entities)
     }
 }

@@ -1,4 +1,4 @@
-package com.gablalib.pokedexcore.factories
+package com.gablalib.pokedexcore.factories.pokemon
 
 import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.models.type.Type
