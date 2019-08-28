@@ -12,15 +12,15 @@ object MoveFactory {
             .map { entity -> create(entity) }
     }
 
-    fun create(entity: MoveEntity): Move {
-        return Move(name = entity.name,
-            type = Type.valueOf(entity.type.toUpperCase()),
-            category = MoveCategory.valueOf(entity.category.toUpperCase()),
-            PP = entity.pp.toInt(),
-            power = entity.power.toInt(),
-            accuracy = entity.accuracy.toInt(),
-            battleDescription = entity.battleDescription,
-            battleEffect = entity.battleEffect,
-            battleEffectRate = entity.battleEffectRate)
-    }
+    fun create(entity: MoveEntity): Move = Move(
+        name = entity.name,
+        type = Type.valueOf(entity.type.toUpperCase()),
+        category = MoveCategory.valueOf(entity.category.toUpperCase()),
+        PP = entity.pp.toInt(),
+        power = entity.power.toInt(),
+        accuracy = entity.accuracy.toInt(),
+        battleDescription = entity.battleDescription,
+        battleEffect = entity.battleEffect,
+        battleEffectRate = entity.battleEffectRate
+    )
 }

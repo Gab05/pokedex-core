@@ -18,8 +18,8 @@ import kotlin.test.expect
 
 class MoveRequestHandlerTest {
 
-    private val move = MoveMocks.basicMove()
-    private val moves = arrayListOf(move)
+    private val move = MoveMocks.tackle()
+    private val allMoves = arrayListOf(move)
     private val filteredMoves = ArrayList<Move>()
     private val aMoveRequest = MoveRequest(move.name)
     private val aMoveFilter = MoveFilter(arrayListOf(move.name))
@@ -30,7 +30,7 @@ class MoveRequestHandlerTest {
     fun init() {
         mockkObject(MoveService)
 
-        every { MoveService.getAllMoves() } returns moves
+        every { MoveService.getAllMoves() } returns allMoves
         every { MoveService.getMoveByName(move.name) } returns move
         every { MoveService.getMovesByFilter(aMoveFilter) } returns filteredMoves
     }
@@ -41,7 +41,7 @@ class MoveRequestHandlerTest {
     }
 
     @Test
-    fun whenHandlingAMoveRequest() {
+    fun `when handling a MoveRequest`() {
         expect(move, "should return a Move") {
             MoveRequestHandler.handleMoveRequest(aMoveRequest)
         }
@@ -50,8 +50,8 @@ class MoveRequestHandlerTest {
     }
 
     @Test
-    fun whenHandlingAMovesRequestWithoutFilter() {
-        expect(moves, "should return Moves") {
+    fun `when handling a MovesRequest without filter`() {
+        expect(allMoves, "should return Moves") {
             MoveRequestHandler.handleMovesRequest(aMovesRequest)
         }
 

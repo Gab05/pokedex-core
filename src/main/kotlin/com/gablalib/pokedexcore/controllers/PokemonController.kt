@@ -1,5 +1,7 @@
 package com.gablalib.pokedexcore.controllers
 
+import com.gablalib.pokedexcore.filters.PokemonFilter
+import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.services.PokemonService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
@@ -16,8 +18,10 @@ object PokemonController {
     fun pokemonName(@PathVariable name: String) = PokemonService.getPokemonByName(name)
 
     @GetMapping("/number/{nationalNumber}")
-    fun pokemonNationalNumber(@PathVariable nationalNumber: Int)
-            = PokemonService.getPokemonsByNationalNumber(nationalNumber)
+    fun pokemonNationalNumber(@PathVariable nationalNumber: Int): List<Pokemon> {
+        val filter = PokemonFilter(nationalNumber = nationalNumber)
+        return PokemonService.getPokemonsByFilter(filter)
+    }
 
     @GetMapping("/{name}/sprite/normal",
         produces = [MediaType.IMAGE_GIF_VALUE]

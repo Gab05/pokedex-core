@@ -23,7 +23,6 @@ class PokemonControllerTest {
 
         every { PokemonService.getAllPokemons() } returns ArrayList()
         every { PokemonService.getPokemonByName(A_POKEMON_NAME) } returns Pokemon("charmander")
-        every { PokemonService.getPokemonsByNationalNumber(any()) } returns ArrayList()
     }
 
     @After
@@ -43,12 +42,5 @@ class PokemonControllerTest {
         expect(A_POKEMON_NAME, "should return a Pokemon of same name",
             { PokemonController.pokemonName(A_POKEMON_NAME).name })
         verify { PokemonService.getPokemonByName(A_POKEMON_NAME) }
-    }
-
-    @Test
-    fun whenGettingPokemonByNationalNumber() {
-        expect(ArrayList(), "should return an ArrayList<Pokemon>",
-            { PokemonController.pokemonNationalNumber(A_NATIONAL_NUMBER) })
-        verify { PokemonService.getPokemonsByNationalNumber(A_NATIONAL_NUMBER) }
     }
 }

@@ -4,7 +4,6 @@ import com.gablalib.pokedexcore.controllers.MoveController
 import com.gablalib.pokedexcore.controllers.requests.MoveRequest
 import com.gablalib.pokedexcore.controllers.requests.MovesRequest
 import com.gablalib.pokedexcore.filters.MoveFilter
-import com.gablalib.pokedexcore.models.move.Move
 import com.gablalib.pokedexcore.services.requestHandlers.MoveRequestHandler
 import io.mockk.every
 import io.mockk.mockkObject
@@ -18,7 +17,7 @@ import kotlin.test.expect
 
 class MoveControllerTest {
 
-    private val move = MoveMocks.basicMove()
+    private val move = MoveMocks.tackle()
     private val moves = arrayListOf(move)
     private val aMoveFilter = MoveFilter(arrayListOf(move.name))
     private val aMoveRequest = MoveRequest(move.name)

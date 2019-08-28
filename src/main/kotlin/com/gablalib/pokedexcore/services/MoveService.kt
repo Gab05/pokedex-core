@@ -14,7 +14,8 @@ object MoveService {
     }
 
     fun getMoveByName(name: String): Move {
-        val entity = MoveMongoRepo.findByName(name) ?: throw MoveNotFoundException(name)
+        val entity = MoveMongoRepo.findByName(name)
+            ?: throw MoveNotFoundException(name)
         return MoveFactory.create(entity)
     }
 
