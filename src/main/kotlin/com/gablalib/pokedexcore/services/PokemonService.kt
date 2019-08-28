@@ -14,7 +14,8 @@ object PokemonService {
     }
 
     fun getPokemonByName(name: String): Pokemon {
-        val entity = PokemonMongoRepo.findByName(name) ?: throw PokemonNotFoundException(name)
+        val entity = PokemonMongoRepo.findByName(name)
+            ?: throw PokemonNotFoundException(name)
         return PokemonFactory.create(entity)
     }
 
