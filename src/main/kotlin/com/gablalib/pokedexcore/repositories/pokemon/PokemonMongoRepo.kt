@@ -1,11 +1,14 @@
 package com.gablalib.pokedexcore.repositories.pokemon
 
 import com.gablalib.pokedexcore.database.MongoDB
+import com.gablalib.pokedexcore.repositories.entities.MoveEntity
 import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
 import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
 import com.gablalib.pokedexcore.repositories.entities.SpriteEntity
+import com.gablalib.pokedexcore.repositories.move.MoveMongoRepo
+import org.bson.conversions.Bson
 
 object PokemonMongoRepo: PokemonRepo {
 
@@ -20,8 +23,8 @@ object PokemonMongoRepo: PokemonRepo {
         return pokemonCollection.findOne(PokemonEntity::name eq name)
     }
 
-    override fun findByNationalNumber(nationalNumber: Int): List<PokemonEntity> {
-        return pokemonCollection.find(PokemonEntity::nationalNumber eq nationalNumber).filterNotNull()
+    override fun findAllByFilter(mongoFilter: Bson): List<PokemonEntity> {
+        return pokemonCollection.find(mongoFilter).toList()
     }
 
     fun findSprites(name: String): SpriteEntity? {

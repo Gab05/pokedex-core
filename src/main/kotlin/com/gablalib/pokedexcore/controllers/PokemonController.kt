@@ -24,7 +24,8 @@ object PokemonController {
 
     @GetMapping("/number/{nationalNumber}")
     fun pokemonNationalNumber(@PathVariable nationalNumber: Int): List<Pokemon> {
-        val request = PokemonsRequest(PokemonFilter(nationalNumber = nationalNumber))
+        val filter = PokemonFilter(nationalNumber = nationalNumber)
+        val request = PokemonsRequest(filter)
         return PokemonRequestHandler.handlePokemonsRequest(request)
     }
 }

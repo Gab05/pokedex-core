@@ -1,6 +1,7 @@
 package com.gablalib.pokedexcore.services
 
 import com.gablalib.pokedexcore.factories.pokemon.PokemonFactory
+import com.gablalib.pokedexcore.factories.pokemon.PokemonMongoFilterFactory
 import com.gablalib.pokedexcore.filters.PokemonFilter
 import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.repositories.pokemon.PokemonMongoRepo
@@ -20,9 +21,8 @@ object PokemonService {
     }
 
     fun getPokemonsByFilter(filter: PokemonFilter): List<Pokemon> {
-//        val mongoFilter = PokemonMongoFilterFactory.create(filter)
-//        val entities = PokemonMongoRepo.findAllByFilter(mongoFilter)
-        val entities = PokemonMongoRepo.findAll()
+        val mongoFilter = PokemonMongoFilterFactory.create(filter)
+        val entities = PokemonMongoRepo.findAllByFilter(mongoFilter)
         return PokemonFactory.createAll(entities)
     }
 
