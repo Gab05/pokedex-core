@@ -7,9 +7,9 @@ import org.litote.kmongo.*
 
 object MongoDB {
 
-    // TODO: Store this in config file with readonly access user
+    // TODO: Store this in config file
     private val client: MongoClient = KMongo.createClient(ConnectionString(
-        "mongodb+srv://trainer:x@pokecluster-hsbyc.mongodb.net/test?retryWrites=true"))
+        "mongodb+srv://trainer:x@pokecluster-hsbyc.mongodb.net/test"))
 
     fun getDB(): MongoDatabase {
         return client.getDatabase("pokedb")
