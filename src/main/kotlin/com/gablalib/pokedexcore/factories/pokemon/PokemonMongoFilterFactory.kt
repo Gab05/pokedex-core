@@ -1,6 +1,7 @@
 package com.gablalib.pokedexcore.factories.pokemon
 
 import com.gablalib.pokedexcore.filters.PokemonFilter
+import com.gablalib.pokedexcore.models.pokemon.ability.Abilities
 import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
 import org.bson.conversions.Bson
 import org.litote.kmongo.*
@@ -11,7 +12,10 @@ object PokemonMongoFilterFactory {
     fun create(filter: PokemonFilter): Bson {
         return and(
             filterNames(filter.names),
-            filterNationalNumber(filter.nationalNumber)
+            filterNationalNumber(filter.nationalNumber),
+            filterType(filter.type),
+            filterMoves(filter.move),
+            filterAbility(filter.ability)
         )
     }
 
@@ -25,28 +29,26 @@ object PokemonMongoFilterFactory {
         else PokemonEntity::nationalNumber eq nationalNumber
     }
 
-    private fun filterTypes(types: List<String>?): Bson {
-        var mongoFilter = EMPTY_BSON
-        return if (types == null) mongoFilter
-        else {
-            for (type in types) mongoFilter = and(mongoFilter, PokemonEntity::type contains type)
-            mongoFilter
-        }
+    private fun filterType(type: String?): Bson {
+        return if (type == null) EMPTY_BSON
+        else PokemonEntity::type contains type
     }
 
-    private fun filterMoves(moves: List<String>?): Bson {
-        return if (moves == null) EMPTY_BSON
+    private fun filterMoves(move: String?): Bson {
+        return if (move == null) EMPTY_BSON
         else or(
-            PokemonEntity::tmMoves inList moves,
-            PokemonEntity::eggMoves inList moves,
-            PokemonEntity::levelUpMoves inList moves
+            PokemonEntity::tmMoves contains move,
+            PokemonEntity::eggMoves contains move,
+            PokemonEntity::levelUpMoves contains move
         )
     }
 
-    private fun filterAbilities(abilities: List<String>?): Bson {
-        return if (abilities == null) EMPTY_BSON
+    private fun filterAbility(ability: String?): Bson {
+        return if (ability == null) EMPTY_BSON
         else or(
-            PokemonEntity::abilities inList abilities
+            PokemonEntity::abilities / Abilities::first eq ability,
+            PokemonEntity::abilities / Abilities::second eq ability,
+            PokemonEntity::abilities / Abilities::hidden eq ability
         )
     }
 }
