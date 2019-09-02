@@ -1,12 +1,10 @@
 package factories
 
 import com.gablalib.pokedexcore.factories.pokemon.PokemonFactory
-import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import io.mockk.mockkObject
-import io.mockk.unmockkObject
 import io.mockk.verify
-import mocks.PokemonEntityMocks
-import mocks.PokemonMocks
+import mocks.entities.PokemonEntityMocks
+import mocks.models.PokemonMocks
 import org.junit.Test
 import kotlin.test.assertEquals
 

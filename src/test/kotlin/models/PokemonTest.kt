@@ -1,7 +1,7 @@
 package models
 
 import com.gablalib.pokedexcore.models.type.Type
-import mocks.PokemonMocks
+import mocks.models.PokemonMocks
 import org.junit.Test
 import kotlin.test.expect
 

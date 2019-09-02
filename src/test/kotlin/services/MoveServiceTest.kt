@@ -11,13 +11,12 @@ import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.MoveEntityMocks
-import mocks.MoveMocks
+import mocks.entities.MoveEntityMocks
+import mocks.models.MoveMocks
 import org.bson.conversions.Bson
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.litote.kmongo.EMPTY_BSON
 import org.litote.kmongo.`in` as inList
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

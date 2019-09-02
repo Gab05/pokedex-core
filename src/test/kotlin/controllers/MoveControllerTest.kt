@@ -9,7 +9,7 @@ import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.MoveMocks
+import mocks.models.MoveMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -19,9 +19,8 @@ class MoveControllerTest {
 
     private val move = MoveMocks.tackle()
     private val moves = arrayListOf(move)
-    private val aMoveFilter = MoveFilter(arrayListOf(move.name))
     private val aMoveRequest = MoveRequest(move.name)
-    private val aMovesRequest = MovesRequest(aMoveFilter)
+    private val aMovesRequest = MovesRequest()
 
     @Before
     fun init() {
@@ -37,20 +36,20 @@ class MoveControllerTest {
     }
 
     @Test
-    fun whenRequestingAMoveByName() {
-        expect(move, "should return a MoveResponse") {
-            MoveController.move(move.name)
-        }
-
-        verify { MoveRequestHandler.handleMoveRequest(aMoveRequest) }
-    }
-
-    @Test
-    fun whenRequestingAllMoves() {
-        expect(moves, "should return a MovesResponse") {
+    fun `when requesting all moves`() {
+        expect(moves, "should return moves") {
             MoveController.moves(aMovesRequest)
         }
 
         verify { MoveRequestHandler.handleMovesRequest(aMovesRequest) }
+    }
+
+    @Test
+    fun `when requesting a single move by name`() {
+        expect(move, "should return a move") {
+            MoveController.move(move.name)
+        }
+
+        verify { MoveRequestHandler.handleMoveRequest(aMoveRequest) }
     }
 }

@@ -17,15 +17,12 @@ object PokemonController {
             = PokemonRequestHandler.handlePokemonsRequest(request)
 
     @GetMapping("/{name}")
-    fun pokemonName(@PathVariable name: String): Pokemon {
-        val request = PokemonRequest(name)
-        return PokemonRequestHandler.handlePokemonRequest(request)
-    }
+    fun pokemonName(@PathVariable name: String): Pokemon
+            = PokemonRequestHandler.handlePokemonRequest(PokemonRequest(name))
 
     @GetMapping("/number/{nationalNumber}")
     fun pokemonNationalNumber(@PathVariable nationalNumber: Int): List<Pokemon> {
         val filter = PokemonFilter(nationalNumber = nationalNumber)
-        val request = PokemonsRequest(filter)
-        return PokemonRequestHandler.handlePokemonsRequest(request)
+        return PokemonRequestHandler.handlePokemonsRequest(PokemonsRequest(filter))
     }
 }

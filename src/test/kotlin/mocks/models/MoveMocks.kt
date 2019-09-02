@@ -1,4 +1,4 @@
-package mocks
+package mocks.models
 
 import com.gablalib.pokedexcore.models.move.Move
 import com.gablalib.pokedexcore.models.move.MoveCategory
