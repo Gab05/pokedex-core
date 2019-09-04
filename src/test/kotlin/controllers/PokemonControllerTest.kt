@@ -1,12 +1,15 @@
 package controllers
 
 import com.gablalib.pokedexcore.controllers.PokemonController
-import com.gablalib.pokedexcore.models.pokemon.Pokemon
-import com.gablalib.pokedexcore.services.PokemonService
+import com.gablalib.pokedexcore.controllers.requests.PokemonRequest
+import com.gablalib.pokedexcore.controllers.requests.PokemonsRequest
+import com.gablalib.pokedexcore.filters.PokemonFilter
+import com.gablalib.pokedexcore.services.requestHandlers.PokemonRequestHandler
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
+import mocks.models.PokemonMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -14,15 +17,24 @@ import kotlin.test.expect
 
 class PokemonControllerTest {
 
-    private val A_POKEMON_NAME = "charmander"
-    private val A_NATIONAL_NUMBER = 4
+    private val aPokemon = PokemonMocks.squirtle()
+    private val anotherPokemon = PokemonMocks.garchomp()
+    private val pokemons = arrayListOf(aPokemon, anotherPokemon)
+    private val nationalNumberpokemons = arrayListOf(aPokemon)
+    private val aPokemonRequest = PokemonRequest(aPokemon.name)
+    private val aPokemonNationalNumberFilter = PokemonFilter(nationalNumber = aPokemon.nationalNumber)
+    private val aPokemonNationalNumberReqest = PokemonsRequest(aPokemonNationalNumberFilter)
+    private val allPokemonsRequest = PokemonsRequest()
 
     @Before
     fun init() {
-        mockkObject(PokemonService)
+        mockkObject(PokemonRequestHandler)
 
-        every { PokemonService.getAllPokemons() } returns ArrayList()
-        every { PokemonService.getPokemonByName(A_POKEMON_NAME) } returns Pokemon("charmander")
+        every { PokemonRequestHandler.handlePokemonRequest(aPokemonRequest) } returns aPokemon
+        every { PokemonRequestHandler.handlePokemonsRequest(allPokemonsRequest) } returns pokemons
+        every {
+            PokemonRequestHandler.handlePokemonsRequest(aPokemonNationalNumberReqest)
+        } returns nationalNumberpokemons
     }
 
     @After
@@ -31,16 +43,26 @@ class PokemonControllerTest {
     }
 
     @Test
-    fun whenGettingAllPokemon() {
-        expect(ArrayList(), "should return an ArrayList<Pokemon>",
-            { PokemonController.pokemons() })
-        verify { PokemonService.getAllPokemons() }
+    fun `when requesting all pokemons`() {
+        expect(pokemons, "should return an ArrayList<Pokemon>",
+            { PokemonController.pokemons(allPokemonsRequest) })
+
+        verify { PokemonRequestHandler.handlePokemonsRequest(allPokemonsRequest) }
     }
 
     @Test
-    fun whenGettingPokemonByName() {
-        expect(A_POKEMON_NAME, "should return a Pokemon of same name",
-            { PokemonController.pokemonName(A_POKEMON_NAME).name })
-        verify { PokemonService.getPokemonByName(A_POKEMON_NAME) }
+    fun `when requesting a pokemon by name`() {
+        expect(aPokemon, "should return a Pokemon",
+            { PokemonController.pokemonName(aPokemon.name) })
+
+        verify { PokemonRequestHandler.handlePokemonRequest(aPokemonRequest) }
+    }
+
+    @Test
+    fun `when requesting pokemons by national number`() {
+        expect(nationalNumberpokemons, "should return a Pokemon of same name",
+            { PokemonController.pokemonNationalNumber(aPokemon.nationalNumber) })
+
+        verify { PokemonRequestHandler.handlePokemonsRequest(aPokemonNationalNumberReqest) }
     }
 }

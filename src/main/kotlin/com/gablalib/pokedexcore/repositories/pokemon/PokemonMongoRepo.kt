@@ -1,13 +1,11 @@
 package com.gablalib.pokedexcore.repositories.pokemon
 
 import com.gablalib.pokedexcore.database.MongoDB
-import com.gablalib.pokedexcore.repositories.entities.MoveEntity
 import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
 import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
 import com.gablalib.pokedexcore.repositories.entities.SpriteEntity
-import com.gablalib.pokedexcore.repositories.move.MoveMongoRepo
 import org.bson.conversions.Bson
 
 object PokemonMongoRepo: PokemonRepo {

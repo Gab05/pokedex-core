@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/moves")
 object MoveController {
 
-    @GetMapping("/{name}")
-    fun move(@PathVariable name: String): Move {
-        return MoveRequestHandler.handleMoveRequest(MoveRequest(name))
-    }
-
     @GetMapping("")
     fun moves(@RequestBody request: MovesRequest?): List<Move> {
         return MoveRequestHandler.handleMovesRequest(request)
+    }
+
+    @GetMapping("/{name}")
+    fun move(@PathVariable name: String): Move {
+        return MoveRequestHandler.handleMoveRequest(MoveRequest(name))
     }
 }

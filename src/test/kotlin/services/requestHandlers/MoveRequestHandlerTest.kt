@@ -10,7 +10,7 @@ import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.MoveMocks
+import mocks.models.MoveMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
