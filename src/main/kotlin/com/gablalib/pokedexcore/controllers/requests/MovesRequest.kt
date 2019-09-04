@@ -2,4 +2,4 @@ package com.gablalib.pokedexcore.controllers.requests
 
 import com.gablalib.pokedexcore.filters.MoveFilter
 
-class MovesRequest(val filter: MoveFilter?)
+data class MovesRequest(val filter: MoveFilter?)
