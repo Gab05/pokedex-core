@@ -9,7 +9,7 @@ import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
 
 object PokemonSpritesMongoRepo: MongoRepo<SpriteEntity> {
-    override val collection = MongoDB.getDB().getCollection<SpriteEntity>("pokemon")
+    override val collection = MongoDB.getDB().getCollection<SpriteEntity>("sprites")
 
     override fun findAll(): Collection<SpriteEntity> = collection.find().filterNotNull()
 
