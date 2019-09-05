@@ -11,10 +11,8 @@ import com.gablalib.pokedexcore.models.type.Type
 
 class PokemonMocks {
     companion object {
-        fun basicPokemon(): Pokemon { return squirtle()
-        }
-        fun pokemonWithAMegaEvolution(): Pokemon { return garchomp()
-        }
+        fun basicPokemon(): Pokemon = squirtle()
+        fun pokemonWithAMegaEvolution(): Pokemon = garchomp()
         fun pokemonWithTwoMegaEvolutions(){}
         fun aMegaEvolution(){}
         fun aPokemonWithAnAlolanForm(){}

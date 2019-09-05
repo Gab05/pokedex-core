@@ -1,6 +1,6 @@
 package com.gablalib.pokedexcore.models.pokemon.stats
 
-class Stats(val hp: Int = 0,
+data class Stats(val hp: Int = 0,
             val atk: Int = 0,
             val def: Int = 0,
             val spatk: Int = 0,

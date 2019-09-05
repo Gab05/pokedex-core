@@ -1,31 +1,20 @@
 package com.gablalib.pokedexcore.repositories.pokemon
 
 import com.gablalib.pokedexcore.database.MongoDB
+import com.gablalib.pokedexcore.repositories.MongoRepo
+import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
+import org.bson.conversions.Bson
 import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
-import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
-import com.gablalib.pokedexcore.repositories.entities.SpriteEntity
-import org.bson.conversions.Bson
 
-object PokemonMongoRepo: PokemonRepo {
+object PokemonMongoRepo: MongoRepo<PokemonEntity> {
 
-    private val pokemonCollection = MongoDB.getDB().getCollection<PokemonEntity>("pokemon")
-    private val spritesCollection = MongoDB.getDB().getCollection<SpriteEntity>("sprites")
+    override val collection = MongoDB.getDB().getCollection<PokemonEntity>("pokemon")
 
-    override fun findAll(): List<PokemonEntity> {
-        return pokemonCollection.find().filterNotNull()
-    }
+    override fun findAll(): List<PokemonEntity> = collection.find().filterNotNull()
 
-    override fun findByName(name: String): PokemonEntity? {
-        return pokemonCollection.findOne(PokemonEntity::name eq name)
-    }
+    override fun findByName(name: String): PokemonEntity? = collection.findOne(PokemonEntity::name eq name)
 
-    override fun findAllByFilter(mongoFilter: Bson): List<PokemonEntity> {
-        return pokemonCollection.find(mongoFilter).toList()
-    }
-
-    fun findSprites(name: String): SpriteEntity? {
-        return spritesCollection.findOne(SpriteEntity::name eq name)
-    }
+    override fun findAllByFilter(mongoFilter: Bson): List<PokemonEntity> = collection.find(mongoFilter).toList()
 }

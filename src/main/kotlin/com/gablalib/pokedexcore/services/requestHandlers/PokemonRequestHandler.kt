@@ -1,13 +1,13 @@
 package com.gablalib.pokedexcore.services.requestHandlers
 
-import com.gablalib.pokedexcore.controllers.requests.PokemonRequest
 import com.gablalib.pokedexcore.controllers.requests.PokemonsRequest
+import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.services.PokemonService
 
 object PokemonRequestHandler {
 
-    fun handlePokemonRequest(request: PokemonRequest): Pokemon
+    fun handlePokemonRequest(request: SimpleRequest): Pokemon
             = PokemonService.getPokemonByName(request.name)
 
     fun handlePokemonsRequest(request: PokemonsRequest?): List<Pokemon> {

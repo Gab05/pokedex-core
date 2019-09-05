@@ -1,7 +1,7 @@
 package com.gablalib.pokedexcore.controllers
 
-import com.gablalib.pokedexcore.controllers.requests.PokemonRequest
 import com.gablalib.pokedexcore.controllers.requests.PokemonsRequest
+import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.filters.PokemonFilter
 import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.services.requestHandlers.PokemonRequestHandler
@@ -18,7 +18,7 @@ object PokemonController {
 
     @GetMapping("/{name}")
     fun pokemonName(@PathVariable name: String): Pokemon
-            = PokemonRequestHandler.handlePokemonRequest(PokemonRequest(name))
+            = PokemonRequestHandler.handlePokemonRequest(SimpleRequest(name))
 
     @GetMapping("/number/{nationalNumber}")
     fun pokemonNationalNumber(@PathVariable nationalNumber: Int): List<Pokemon> {

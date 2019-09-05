@@ -1,3 +1,3 @@
 package com.gablalib.pokedexcore.controllers.requests
 
-data class PokemonRequest(val name: String)
+data class SimpleRequest(val name: String)

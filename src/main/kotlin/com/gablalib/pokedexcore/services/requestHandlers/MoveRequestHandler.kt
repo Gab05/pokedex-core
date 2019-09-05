@@ -1,13 +1,13 @@
 package com.gablalib.pokedexcore.services.requestHandlers
 
-import com.gablalib.pokedexcore.controllers.requests.MoveRequest
 import com.gablalib.pokedexcore.controllers.requests.MovesRequest
+import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.models.move.Move
 import com.gablalib.pokedexcore.services.MoveService
 
 object MoveRequestHandler {
 
-    fun handleMoveRequest(request: MoveRequest): Move {
+    fun handleMoveRequest(request: SimpleRequest): Move {
         return MoveService.getMoveByName(request.name)
     }
 

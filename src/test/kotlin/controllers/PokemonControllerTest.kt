@@ -1,9 +1,8 @@
 package controllers
 
 import com.gablalib.pokedexcore.controllers.PokemonController
-import com.gablalib.pokedexcore.controllers.requests.PokemonRequest
 import com.gablalib.pokedexcore.controllers.requests.PokemonsRequest
-import com.gablalib.pokedexcore.filters.PokemonFilter
+import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.services.requestHandlers.PokemonRequestHandler
 import io.mockk.every
 import io.mockk.mockkObject
@@ -20,21 +19,15 @@ class PokemonControllerTest {
     private val aPokemon = PokemonMocks.squirtle()
     private val anotherPokemon = PokemonMocks.garchomp()
     private val pokemons = arrayListOf(aPokemon, anotherPokemon)
-    private val nationalNumberpokemons = arrayListOf(aPokemon)
-    private val aPokemonRequest = PokemonRequest(aPokemon.name)
-    private val aPokemonNationalNumberFilter = PokemonFilter(nationalNumber = aPokemon.nationalNumber)
-    private val aPokemonNationalNumberReqest = PokemonsRequest(aPokemonNationalNumberFilter)
-    private val allPokemonsRequest = PokemonsRequest()
+    private val aPokemonRequest = SimpleRequest(aPokemon.name)
+    private val pokemonsRequest = PokemonsRequest()
 
     @Before
     fun init() {
         mockkObject(PokemonRequestHandler)
 
         every { PokemonRequestHandler.handlePokemonRequest(aPokemonRequest) } returns aPokemon
-        every { PokemonRequestHandler.handlePokemonsRequest(allPokemonsRequest) } returns pokemons
-        every {
-            PokemonRequestHandler.handlePokemonsRequest(aPokemonNationalNumberReqest)
-        } returns nationalNumberpokemons
+        every { PokemonRequestHandler.handlePokemonsRequest(any()) } returns pokemons
     }
 
     @After
@@ -45,9 +38,9 @@ class PokemonControllerTest {
     @Test
     fun `when requesting all pokemons`() {
         expect(pokemons, "should return an ArrayList<Pokemon>",
-            { PokemonController.pokemons(allPokemonsRequest) })
+            { PokemonController.pokemons(pokemonsRequest) })
 
-        verify { PokemonRequestHandler.handlePokemonsRequest(allPokemonsRequest) }
+        verify { PokemonRequestHandler.handlePokemonsRequest(pokemonsRequest) }
     }
 
     @Test
@@ -60,9 +53,9 @@ class PokemonControllerTest {
 
     @Test
     fun `when requesting pokemons by national number`() {
-        expect(nationalNumberpokemons, "should return a Pokemon of same name",
+        expect(pokemons, "should return an arrayList of Pokemon",
             { PokemonController.pokemonNationalNumber(aPokemon.nationalNumber) })
 
-        verify { PokemonRequestHandler.handlePokemonsRequest(aPokemonNationalNumberReqest) }
+        verify { PokemonRequestHandler.handlePokemonsRequest(any()) }
     }
 }

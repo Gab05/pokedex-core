@@ -1,9 +1,8 @@
 package controllers
 
 import com.gablalib.pokedexcore.controllers.MoveController
-import com.gablalib.pokedexcore.controllers.requests.MoveRequest
 import com.gablalib.pokedexcore.controllers.requests.MovesRequest
-import com.gablalib.pokedexcore.filters.MoveFilter
+import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.services.requestHandlers.MoveRequestHandler
 import io.mockk.every
 import io.mockk.mockkObject
@@ -19,7 +18,7 @@ class MoveControllerTest {
 
     private val move = MoveMocks.tackle()
     private val moves = arrayListOf(move)
-    private val aMoveRequest = MoveRequest(move.name)
+    private val aMoveRequest = SimpleRequest(move.name)
     private val aMovesRequest = MovesRequest()
 
     @Before

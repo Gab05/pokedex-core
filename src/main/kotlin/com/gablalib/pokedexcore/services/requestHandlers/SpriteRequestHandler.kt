@@ -1,12 +1,12 @@
 package com.gablalib.pokedexcore.services.requestHandlers
 
-import com.gablalib.pokedexcore.controllers.requests.PokemonRequest
-import com.gablalib.pokedexcore.services.PokemonService
+import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
+import com.gablalib.pokedexcore.services.SpriteService
 
 object SpriteRequestHandler {
-    fun handleNormalPokemonRequest(request: PokemonRequest): ByteArray
-            = PokemonService.getNormalSprite(request.name)
+    fun handleNormalPokemonRequest(request: SimpleRequest): ByteArray
+            = SpriteService.getNormalPokemonSprite(request.name)
 
-    fun handleShinyPokemonRequest(request: PokemonRequest): ByteArray
-            = PokemonService.getShinySprite(request.name)
+    fun handleShinyPokemonRequest(request: SimpleRequest): ByteArray
+            = SpriteService.getShinyPokemonSprite(request.name)
 }

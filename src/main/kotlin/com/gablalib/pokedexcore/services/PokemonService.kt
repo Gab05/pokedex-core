@@ -25,12 +25,4 @@ object PokemonService {
         val entities = PokemonMongoRepo.findAllByFilter(mongoFilter)
         return PokemonFactory.createAll(entities)
     }
-
-    fun getNormalSprite(name: String): ByteArray {
-        return PokemonMongoRepo.findSprites(name)!!.normal
-    }
-
-    fun getShinySprite(name: String): ByteArray {
-        return PokemonMongoRepo.findSprites(name)!!.shiny
-    }
 }

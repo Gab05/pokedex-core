@@ -1,5 +1,3 @@
 package com.gablalib.pokedexcore.filters
 
-class MoveFilter(
-    override val names: List<String>? = null
-) : Filter
+class MoveFilter(override val names: List<String>? = null) : Filter
