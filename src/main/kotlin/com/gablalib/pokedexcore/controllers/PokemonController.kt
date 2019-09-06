@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/pokemons")
 object PokemonController {
 
-    @GetMapping("")
+    @PostMapping("")
     fun pokemons(@RequestBody request: PokemonsRequest?): List<Pokemon>
             = PokemonRequestHandler.handlePokemonsRequest(request)
 

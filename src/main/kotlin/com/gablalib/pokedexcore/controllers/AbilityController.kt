@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/abilities")
 object AbilityController {
 
-    @GetMapping("")
+    @PostMapping("")
     fun abilities(@RequestBody request: AbilitiesRequest?): List<Ability>
             = AbilityRequestHandler.handleAbilitiesRequest(request)
 
