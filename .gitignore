@@ -4,3 +4,7 @@
 /.gradle
 /.idea
 /sprites
+
+# Master branch only!
+.travis
+.travis.yml
