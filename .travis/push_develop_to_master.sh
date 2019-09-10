@@ -1,16 +1,26 @@
 #!/usr/bin/env bash
 
+echo "Setting up Travis user..."
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
+echo "Done setting up Travis user!"
 
+echo "Fetching remote branches..."
 git fetch
+echo "Done fetching remote branches!"
 
+echo "Checking out master branch..."
 git checkout master
+echo "Done checking out master branch!"
 
+echo "Merging develop into master..."
 git merge develop -m "Travis build: $TRAVIS_BUILD_NUMBER" --squash
+echo "Done merging develop into master!"
 
+echo "Pushing refs to remote..."
 git remote add origin https://${GH_TOKEN}@github.com/Gab05/pokedex-core.git > /dev/null 2>&1
 git push --set-upstream origin master
+echo "Done!"
 
 #
 ## The filename of the key is the one specified in the ./decrypt_private_key.sh script
