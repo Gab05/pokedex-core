@@ -4,7 +4,3 @@
 /.gradle
 /.idea
 /sprites
-
-/.travis
-.travis.yml
-.gitignore
