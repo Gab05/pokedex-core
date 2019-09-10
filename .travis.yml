@@ -1,10 +1,6 @@
 language: java
 jobs:
   include:
-<<<<<<< HEAD
-    - stage: deploy
-      script: ./gradlew test &&  .travis/push_develop_to_master.sh
-=======
   - stage: deploy
     script: "./gradlew test"
 before_install:
@@ -16,4 +12,3 @@ before_install:
 - echo -e "Host ec2-18-222-202-175.us-east-2.compute.amazonaws.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key ubuntu@ec2-18-222-202-175.us-east-2.compute.amazonaws.com pwd
->>>>>>> 70b0c6aa7b658364e5fce76481ca1f15087ee923
