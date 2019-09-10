@@ -5,6 +5,11 @@ git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
 echo "Done setting up Travis user!"
 
+echo "Cloning..."
+git clone https://${GH_TOKEN}@github.com/Gab05/pokedex-core.git
+cd pokedex-core
+echo "Done cloning!"
+
 echo "Fetching remote branches..."
 git fetch
 echo "Done fetching remote branches!"
