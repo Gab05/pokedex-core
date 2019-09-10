@@ -1,46 +1,57 @@
 package services
 
-import com.gablalib.pokedexcore.factories.MoveFactory
-import com.gablalib.pokedexcore.models.move.Move
-import com.gablalib.pokedexcore.repositories.MoveMongoRepo
-import com.gablalib.pokedexcore.repositories.entities.MoveEntity
+import com.gablalib.pokedexcore.factories.move.MoveFactory
+import com.gablalib.pokedexcore.factories.move.MoveMongoFilterFactory
+import com.gablalib.pokedexcore.filters.MoveFilter
+import com.gablalib.pokedexcore.repositories.move.MoveMongoRepo
 import com.gablalib.pokedexcore.services.MoveService
+import com.gablalib.pokedexcore.services.exceptions.MoveNotFoundException
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
+import mocks.entities.MoveEntityMocks
+import mocks.models.MoveMocks
+import org.bson.conversions.Bson
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.litote.kmongo.EMPTY_BSON
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.expect
 
 class MoveServiceTest {
 
-    private val A_MOVE_NAME = "double_kick"
-    private val A_MOVE_TYPE = "fighting"
-    private val A_MOVE_ENTITY = MoveEntity(
-        name = A_MOVE_NAME,
-        type = A_MOVE_TYPE,
-        category = "PHYSICAL",
-        pp = "30",
-        power = "30",
-        accuracy = "100",
-        battleDescription = "",
-        battleEffect = "No effect.",
-        battleEffectRate = "--")
-    private val A_MOVE = Move(A_MOVE_NAME)
-    private val MOVES = arrayListOf(A_MOVE, A_MOVE)
-    private val MOVES_ENTITY = arrayListOf(A_MOVE_ENTITY, A_MOVE_ENTITY)
+    private val tackle = MoveMocks.tackle()
+    private val agility = MoveMocks.agility()
+    private val allMoves = arrayListOf(tackle, agility)
+    private val filteredMoves = arrayListOf(tackle)
+
+    private val tackleEntity = MoveEntityMocks.tackle()
+    private val agilityEntity = MoveEntityMocks.agility()
+    private val allEntities = arrayListOf(tackleEntity, agilityEntity)
+    private val filteredEntities = arrayListOf(tackleEntity)
+
+    private val moveFilter = MoveFilter()
+    private val mongoFilter: Bson = EMPTY_BSON
+    private val notAMoveName = "not_a_move"
 
     @Before
     fun init() {
         mockkObject(MoveMongoRepo)
-        every { MoveMongoRepo.findAll() } returns MOVES_ENTITY
-        every { MoveMongoRepo.findByName(A_MOVE_NAME) } returns A_MOVE_ENTITY
+        every { MoveMongoRepo.findAll() } returns allEntities
+        every { MoveMongoRepo.findByName(tackle.name) } returns tackleEntity
+        every { MoveMongoRepo.findByName(notAMoveName) } returns null
+        every { MoveMongoRepo.findAllByFilter(mongoFilter) } returns filteredEntities
 
         mockkObject(MoveFactory)
-        every { MoveFactory.create(A_MOVE_ENTITY) } returns A_MOVE
-        every { MoveFactory.createAll(MOVES_ENTITY) } returns MOVES
+        every { MoveFactory.create(tackleEntity) } returns tackle
+        every { MoveFactory.createAll(allEntities) } returns allMoves
+        every { MoveFactory.createAll(arrayListOf(tackleEntity)) } returns filteredMoves
+
+        mockkObject(MoveMongoFilterFactory)
+        every { MoveMongoFilterFactory.create(moveFilter) } returns mongoFilter
     }
 
     @After
@@ -49,22 +60,43 @@ class MoveServiceTest {
     }
 
     @Test
-    fun whenGettingAllMoves() {
-        expect(MOVES, "should return a Move list") {
+    fun `when getting all moves`() {
+        expect(allMoves, "should return a Move list") {
             MoveService.getAllMoves()
         }
 
         verify { MoveMongoRepo.findAll() }
-        verify { MoveFactory.createAll(MOVES_ENTITY) }
+        verify { MoveFactory.createAll(allEntities) }
     }
 
     @Test
-    fun whenGettingMoveByName() {
-        expect(A_MOVE, "should return a Move") {
-            MoveService.getMoveByName(A_MOVE_NAME)
+    fun `when getting a move by name`() {
+        expect(tackle, "should return a Move") {
+            MoveService.getMoveByName(tackle.name)
         }
 
-        verify { MoveMongoRepo.findByName(A_MOVE_NAME) }
-        verify { MoveFactory.create(A_MOVE_ENTITY) }
+        verify { MoveMongoRepo.findByName(tackle.name) }
+        verify { MoveFactory.create(tackleEntity) }
+    }
+
+    @Test
+    fun `when getting a move by name that does not exist`() {
+        val e = assertFailsWith<MoveNotFoundException> {
+            MoveService.getMoveByName(notAMoveName)
+        }
+
+        verify { MoveMongoRepo.findByName(notAMoveName) }
+        assertEquals(e.name, notAMoveName)
+    }
+
+    @Test
+    fun `when getting all moves with a filter`() {
+        expect(filteredMoves, "should return filtered moves") {
+            MoveService.getMovesByFilter(moveFilter)
+        }
+
+        verify { MoveMongoFilterFactory.create(moveFilter) }
+        verify { MoveMongoRepo.findAllByFilter(mongoFilter) }
+        verify { MoveFactory.createAll(filteredEntities) }
     }
 }

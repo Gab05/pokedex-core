@@ -1,6 +1,6 @@
 package factories
 
-import com.gablalib.pokedexcore.factories.MoveFactory
+import com.gablalib.pokedexcore.factories.move.MoveFactory
 import com.gablalib.pokedexcore.models.move.Move
 import com.gablalib.pokedexcore.models.move.MoveCategory
 import com.gablalib.pokedexcore.models.type.Type
@@ -53,13 +53,5 @@ class MoveFactoryTest {
         assertEquals(expected.battleDescription, actual.battleDescription)
         assertEquals(expected.battleEffect, actual.battleEffect)
         assertEquals(expected.battleEffectRate, actual.battleEffectRate)
-    }
-
-    @Test
-    fun whenCreatingNullEntity_thenDefaultMoveIsReturned() {
-        val expected = Move("")
-        val actual = MoveFactory.create(null)
-
-        assertEquals(expected.name, actual.name)
     }
 }

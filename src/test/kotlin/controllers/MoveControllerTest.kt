@@ -1,15 +1,14 @@
 package controllers
 
 import com.gablalib.pokedexcore.controllers.MoveController
-import com.gablalib.pokedexcore.controllers.PokemonController
-import com.gablalib.pokedexcore.models.move.Move
-import com.gablalib.pokedexcore.models.pokemon.Pokemon
-import com.gablalib.pokedexcore.services.MoveService
-import com.gablalib.pokedexcore.services.PokemonService
+import com.gablalib.pokedexcore.controllers.requests.MovesRequest
+import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
+import com.gablalib.pokedexcore.services.requestHandlers.MoveRequestHandler
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
+import mocks.models.MoveMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -17,14 +16,17 @@ import kotlin.test.expect
 
 class MoveControllerTest {
 
-    private val A_MOVE_NAME = "tackle"
+    private val move = MoveMocks.tackle()
+    private val moves = arrayListOf(move)
+    private val aMoveRequest = SimpleRequest(move.name)
+    private val aMovesRequest = MovesRequest()
 
     @Before
     fun init() {
-        mockkObject(MoveService)
+        mockkObject(MoveRequestHandler)
 
-        every { MoveService.getAllMoves() } returns ArrayList()
-        every { MoveService.getMoveByName(A_MOVE_NAME) } returns Move(A_MOVE_NAME)
+        every { MoveRequestHandler.handleMoveRequest(aMoveRequest) } returns move
+        every { MoveRequestHandler.handleMovesRequest(aMovesRequest) } returns moves
     }
 
     @After
@@ -33,20 +35,20 @@ class MoveControllerTest {
     }
 
     @Test
-    fun whenGettingAllMoves() {
-        expect(ArrayList(), "should return an ArrayList<Move>") {
-            MoveController.moves()
+    fun `when requesting all moves`() {
+        expect(moves, "should return moves") {
+            MoveController.moves(aMovesRequest)
         }
 
-        verify { MoveService.getAllMoves() }
+        verify { MoveRequestHandler.handleMovesRequest(aMovesRequest) }
     }
 
     @Test
-    fun whenGettingMoveByName() {
-        expect(A_MOVE_NAME, "should return a Move with matching name") {
-            MoveController.moveName(A_MOVE_NAME).name
+    fun `when requesting a single move by name`() {
+        expect(move, "should return a move") {
+            MoveController.move(move.name)
         }
 
-        verify { MoveService.getMoveByName(A_MOVE_NAME) }
+        verify { MoveRequestHandler.handleMoveRequest(aMoveRequest) }
     }
 }

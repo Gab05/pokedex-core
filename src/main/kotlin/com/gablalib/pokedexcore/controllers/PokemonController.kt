@@ -1,7 +1,10 @@
 package com.gablalib.pokedexcore.controllers
 
-import com.gablalib.pokedexcore.services.PokemonService
-import org.springframework.http.MediaType
+import com.gablalib.pokedexcore.controllers.requests.PokemonsRequest
+import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
+import com.gablalib.pokedexcore.filters.PokemonFilter
+import com.gablalib.pokedexcore.models.pokemon.Pokemon
+import com.gablalib.pokedexcore.services.requestHandlers.PokemonRequestHandler
 import org.springframework.web.bind.annotation.*
 
 @CrossOrigin
@@ -9,23 +12,17 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/pokemons")
 object PokemonController {
 
-    @GetMapping("")
-    fun pokemons() = PokemonService.getAllPokemons()
+    @PostMapping("")
+    fun pokemons(@RequestBody request: PokemonsRequest?): List<Pokemon>
+            = PokemonRequestHandler.handlePokemonsRequest(request)
 
     @GetMapping("/{name}")
-    fun pokemonName(@PathVariable name: String) = PokemonService.getPokemonByName(name)
+    fun pokemonName(@PathVariable name: String): Pokemon
+            = PokemonRequestHandler.handlePokemonRequest(SimpleRequest(name))
 
     @GetMapping("/number/{nationalNumber}")
-    fun pokemonNationalNumber(@PathVariable nationalNumber: Int)
-            = PokemonService.getPokemonsByNationalNumber(nationalNumber)
-
-    @GetMapping("/{name}/sprite/normal",
-        produces = [MediaType.IMAGE_GIF_VALUE]
-    )
-    fun pokemonNormalSprite(@PathVariable name: String) = PokemonService.getNormalSprite(name)
-
-    @GetMapping("/{name}/sprite/shiny",
-        produces = [MediaType.IMAGE_GIF_VALUE]
-    )
-    fun pokemonShinySprite(@PathVariable name: String) = PokemonService.getShinySprite(name)
+    fun pokemonNationalNumber(@PathVariable nationalNumber: Int): List<Pokemon> {
+        val filter = PokemonFilter(nationalNumber = nationalNumber)
+        return PokemonRequestHandler.handlePokemonsRequest(PokemonsRequest(filter))
+    }
 }
