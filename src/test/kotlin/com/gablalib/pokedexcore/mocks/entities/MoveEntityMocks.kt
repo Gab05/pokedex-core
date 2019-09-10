@@ -1,4 +1,4 @@
-package mocks.entities
+package com.gablalib.pokedexcore.mocks.entities
 
 import com.gablalib.pokedexcore.repositories.entities.MoveEntity
 

@@ -1,19 +1,18 @@
-package mocks.entities
+package com.gablalib.pokedexcore.mocks.models
 
 import com.gablalib.pokedexcore.models.move.LevelUpMove
 import com.gablalib.pokedexcore.models.move.TmMove
+import com.gablalib.pokedexcore.models.pokemon.Pokemon
 import com.gablalib.pokedexcore.models.pokemon.ability.Abilities
 import com.gablalib.pokedexcore.models.pokemon.gender.GenderRatio
 import com.gablalib.pokedexcore.models.pokemon.stats.Stats
 import com.gablalib.pokedexcore.models.pokemon.weight.Weight
-import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
+import com.gablalib.pokedexcore.models.type.Type
 
-class PokemonEntityMocks {
+class PokemonMocks {
     companion object {
-        fun basicPokemon(): PokemonEntity { return squirtle()
-        }
-        fun pokemonWithAMegaEvolution(): PokemonEntity { return garchomp()
-        }
+        fun basicPokemon(): Pokemon = squirtle()
+        fun pokemonWithAMegaEvolution(): Pokemon = garchomp()
         fun pokemonWithTwoMegaEvolutions(){}
         fun aMegaEvolution(){}
         fun aPokemonWithAnAlolanForm(){}
@@ -22,13 +21,13 @@ class PokemonEntityMocks {
         fun aPokemonWithManyAlternateForms(){}
         fun anAlternateFormPokemon(){}
 
-        fun squirtle(): PokemonEntity {
-            return PokemonEntity(
+        fun squirtle(): Pokemon {
+            return Pokemon(
                 name = "squirtle",
-                stats = Stats(44, 48, 65, 50, 64, 43),
+                baseStats = Stats(44, 48, 65, 50, 64, 43),
                 nationalNumber = 7,
                 abilities = Abilities("torrent", hidden = "rain_dish"),
-                type = arrayListOf("water"),
+                typing = hashSetOf(Type.WATER),
                 levelUpMoves = arrayListOf(
                     LevelUpMove("tackle", "1"),
                     LevelUpMove("tail_whip", "4"),
@@ -49,13 +48,13 @@ class PokemonEntityMocks {
             )
         }
 
-        fun garchomp(): PokemonEntity {
-            return PokemonEntity(
+        fun garchomp(): Pokemon {
+            return Pokemon(
                 name = "garchomp",
-                stats = Stats(108, 130, 95, 80, 85, 102),
+                baseStats = Stats(108, 130, 95, 80, 85, 102),
                 nationalNumber = 445,
                 abilities = Abilities("sand_veil", hidden = "rough_skin"),
-                type = arrayListOf("dragon", "ground"),
+                typing = hashSetOf(Type.DRAGON, Type.GROUND),
                 levelUpMoves = arrayListOf(
                     LevelUpMove("crunch", "1"),
                     LevelUpMove("sand_attack", "3"),
@@ -77,8 +76,8 @@ class PokemonEntityMocks {
                     "double_edge",
                     "iron_head"
                 ),
-                genderRatio = GenderRatio("50", "50"),
                 weight = Weight(lbs = "209.4", kg = "95"),
+                genderRatio = GenderRatio("50", "50"),
                 captureRate = "45"
             )
         }

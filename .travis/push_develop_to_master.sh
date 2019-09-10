@@ -22,7 +22,6 @@ git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
 echo "INFO - done merging develop into master!"
 
 echo "INFO - pushing refs to remote..."
-git remote add origin https://${GH_TOKEN}@github.com/Gab05/pokedex-core.git > /dev/null 2>&1
 git push --set-upstream origin master
 echo "Done! Merged develop into master."
 
