@@ -4,7 +4,7 @@ jobs:
   - stage: deploy
     script: "./gradlew test"
 after_success:
-  - ./travis/push_develop_to_master.sh
+  - .travis/push_develop_to_master.sh
 env:
   global:
     secure: eAvIMlWJC9gThukeVL32+kS4BSsy91W1XuSCxElvfVHVHUPgTUcVPqrbdCBzqYDvrJA/rxnwaeOJD28wT+eidYptNAP092joOZnnFzq9Ej9MgLxMTv8xS5nSNCiK5RF2kEPrW0rnQiifw9lueaGtMNVie0fX/oIbB/nIMXZDE9dVtn4WJ1+xtMoRsrtBb2iOLgCGRE8Sc44hCuFGK7VP9e9feELY8WGDyJe2s4wcv4InvtiFHMNRaM5m/I88wjVN1rBJGRG0wXp0qKzCSWL7tuG0dkn21KXxOkgoJaZJw+DKkLRB1IVimgm4Bqd5AfpPXc2Tggw+OWWBK1/olVqGfW2p/hREGReTC/8TILoTmVcXtBfvmAUNA+A+pwxO9va4axie/Utr7LGC9mcVL7+8+o+Nrv4bhnW9LNwKch1Hra7SDjt1K4pgvOy66S5l0UZyH6FDZYfmwXmAmRKgFDj1gPtL3ldill8DXwacteoAtTgklpBNMwyM6iRF7mB/i9T29DJFWEZOjs5MCfXHtOf5J0lZEaXqrk3Xf/1tF2y7tIcquiKMCuITsGYsq8E7ZfpWmkoBCetD+uDFhw2L0SNJBCxrq5V8NMpUtsuYOKMvGjZDMPDozyFee7f42K/HgQxYbOZHWXHQxXrh39EE78YXqL2IAUiDMacd5+9TQRZ5KJM=
