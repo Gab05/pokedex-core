@@ -5,6 +5,6 @@
 /.idea
 /sprites
 
-.travis
+/.travis
 .travis.yml
 .gitignore
