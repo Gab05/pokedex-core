@@ -1,29 +1,30 @@
 #!/usr/bin/env bash
 
-echo "Setting up Travis user..."
+echo "INFO - setting up Travis user..."
 git config user.email "travis@travis-ci.org"
 git config user.name "travis-ci"
-echo "Done setting up Travis user!"
+echo "INFO - done setting up Travis user!"
 
-echo "Cloning..."
+echo "INFO - cloning repo..."
 git clone https://travis-ci:${GH_TOKEN}@github.com/Gab05/pokedex-core.git --branch=master
 cd pokedex-core
 git remote rm origin
 git remote add origin https://travis-ci:${GH_TOKEN}@github.com/Gab05/pokedex-core.git
-echo "Done cloning!"
+echo "INFO - done cloning repo!"
 
-echo "Fetching remote branches..."
+echo "INFO - fetching remote branches..."
 git fetch
-echo "Done fetching remote branches!"
+echo "INFO - done fetching remote branches!"
 
-echo "Merging develop into master..."
-git merge origin/develop -m "Travis build: $TRAVIS_BUILD_NUMBER" --squash
-echo "Done merging develop into master!"
+echo "INFO - merging develop into master..."
+git merge origin/develop --squash
+git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
+echo "INFO - done merging develop into master!"
 
-echo "Pushing refs to remote..."
+echo "INFO - pushing refs to remote..."
 git remote add origin https://${GH_TOKEN}@github.com/Gab05/pokedex-core.git > /dev/null 2>&1
 git push --set-upstream origin master
-echo "Done!"
+echo "Done! Merged develop into master."
 
 #
 ## The filename of the key is the one specified in the ./decrypt_private_key.sh script

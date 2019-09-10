@@ -38,7 +38,7 @@ class MoveFactoryTest {
     }
 
     @Test
-    fun whenCreatingAnEntity_thenCorrectMoveIsCreated() {
+    fun `when creating an entity_then correct move is created`() {
         val expected = Move(A_MOVE_NAME, Type.valueOf(A_MOVE_TYPE.toUpperCase()), PP=15, power=80, accuracy = 100,
             category = MoveCategory.OTHER, battleDescription = "Attacks target.", battleEffect = "No effect.",
             battleEffectRate = "--")
