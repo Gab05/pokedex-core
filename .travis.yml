@@ -1,10 +1,1 @@
 language: java
-jobs:
-  include:
-  - stage: deploy
-    script: "./gradlew test"
-after_success:
-- ".travis/push_develop_to_master.sh"
-env:
-  global:
-    secure: fklb/aHJuHXAvwPMqXZeruD00BEAvA268LcM31jO9ujlCaFhZrQ8EO5wOK+8lrZp6f/N3YDVuRr9bYFOFYlxmZOg7Lg4DawqZ50J6T8jWRmOa3Gb3VhZtQu7LiZgQIIkJF75V3nKj+TUKzqlaqglZhpG1V8YE1SglqQ2UNvY1zbql6+V4LLNiufHJ+I0oNfuk7n5vMXshIMrqD158qtzdN0vCbLMbYLb65EffdUtwdzHuwxiLNnfnBNIquYUgOMAqIwwDQ56IS9LNqCRnCYD7j+bkvhS7xBIYRYdZ6d5+q3aq874GZ//O9kpavdeosYkvKPqXHixIe5n8/Ag0aDS0NF7FPp2XLSu+hsSm93oNlHld1AArW3fLPxssPg/zLPtpIEzWpYQJqlD7BBzc9hjg9Bui2RSgXtxgP/XcqOQpdg4rdaYUvL6snO2l03+CAUvncN8WBCXHCksVyUrSyoRC4Rn2Uz9eEbj0SDRRKs63uHDog08TQ1b7MOyquV17TJbnfy/tLRxyef9qEahhFeqwOpdXUdWym9/GceSsg43rTldlvu3Qlp3KqIWgu7or3dUBymz9uosRbayr+2TVPKnI1V8jcvQnLFxjNgNxWvfUV8FdnmDaIrOpZnf/5La0j5Vq9fkSS8S+Dw7Jdn8i0T5gZ52vY2yZun+hR82XXySB6I=
