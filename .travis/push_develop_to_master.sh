@@ -16,10 +16,6 @@ echo "Fetching remote branches..."
 git fetch
 echo "Done fetching remote branches!"
 
-echo "Checking out master branch..."
-git checkout master
-echo "Done checking out master branch!"
-
 echo "Merging develop into master..."
 git merge origin/develop -m "Travis build: $TRAVIS_BUILD_NUMBER" --squash
 echo "Done merging develop into master!"
