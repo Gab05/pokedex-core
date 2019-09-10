@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
 echo "Setting up Travis user..."
-git config --global user.email "travis@travis-ci.org"
-git config --global user.name "Travis CI"
+git config user.email "travis@travis-ci.org"
+git config user.name "travis-ci"
 echo "Done setting up Travis user!"
 
 echo "Cloning..."
-git clone https://${GH_TOKEN}@github.com/Gab05/pokedex-core.git
+git clone https://travis-ci:${GH_TOKEN}@github.com/Gab05/pokedex-core.git --branch=master
 cd pokedex-core
+git remote rm origin
+git remote add origin https://travis-ci:${GH_TOKEN}@github.com/Gab05/pokedex-core.git
 echo "Done cloning!"
 
 echo "Fetching remote branches..."
@@ -19,7 +21,7 @@ git checkout master
 echo "Done checking out master branch!"
 
 echo "Merging develop into master..."
-git merge develop -m "Travis build: $TRAVIS_BUILD_NUMBER" --squash
+git merge origin/develop -m "Travis build: $TRAVIS_BUILD_NUMBER" --squash
 echo "Done merging develop into master!"
 
 echo "Pushing refs to remote..."
