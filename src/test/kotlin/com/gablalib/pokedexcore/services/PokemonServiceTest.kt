@@ -1,17 +1,16 @@
-package services
+package com.gablalib.pokedexcore.services
 
 import com.gablalib.pokedexcore.factories.pokemon.PokemonFactory
 import com.gablalib.pokedexcore.factories.pokemon.PokemonMongoFilterFactory
 import com.gablalib.pokedexcore.filters.PokemonFilter
 import com.gablalib.pokedexcore.repositories.pokemon.PokemonMongoRepo
-import com.gablalib.pokedexcore.services.PokemonService
 import com.gablalib.pokedexcore.services.exceptions.PokemonNotFoundException
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.entities.PokemonEntityMocks
-import mocks.models.PokemonMocks
+import com.gablalib.pokedexcore.mocks.entities.PokemonEntityMocks
+import com.gablalib.pokedexcore.mocks.models.PokemonMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

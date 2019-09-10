@@ -1,17 +1,16 @@
-package services
+package com.gablalib.pokedexcore.services
 
 import com.gablalib.pokedexcore.factories.move.AbilityFactory
 import com.gablalib.pokedexcore.factories.move.AbilityMongoFilterFactory
 import com.gablalib.pokedexcore.filters.AbilityFilter
 import com.gablalib.pokedexcore.repositories.ability.AbilityMongoRepo
-import com.gablalib.pokedexcore.services.AbilityService
 import com.gablalib.pokedexcore.services.exceptions.AbilityNotFoundException
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.entities.AbilityEntityMocks
-import mocks.models.AbilityMocks
+import com.gablalib.pokedexcore.mocks.entities.AbilityEntityMocks
+import com.gablalib.pokedexcore.mocks.models.AbilityMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

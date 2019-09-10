@@ -1,14 +1,13 @@
-package services
+package com.gablalib.pokedexcore.services
 
 import com.gablalib.pokedexcore.repositories.pokemon.PokemonSpritesMongoRepo
-import com.gablalib.pokedexcore.services.SpriteService
 import com.gablalib.pokedexcore.services.exceptions.PokemonNotFoundException
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.entities.SpriteEntityMocks
-import mocks.models.PokemonMocks
+import com.gablalib.pokedexcore.mocks.entities.SpriteEntityMocks
+import com.gablalib.pokedexcore.mocks.models.PokemonMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

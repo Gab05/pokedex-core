@@ -1,4 +1,4 @@
-package mocks.models
+package com.gablalib.pokedexcore.mocks.models
 
 import com.gablalib.pokedexcore.models.pokemon.ability.Ability
 

@@ -1,8 +1,7 @@
-package services.requestHandlers
+package com.gablalib.pokedexcore.services.requestHandlers
 
 import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.services.SpriteService
-import com.gablalib.pokedexcore.services.requestHandlers.SpriteRequestHandler
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
