@@ -7,7 +7,7 @@ import com.gablalib.pokedexcore.models.pokemon.gender.GenderRatio
 import com.gablalib.pokedexcore.models.pokemon.stats.Stats
 import com.gablalib.pokedexcore.models.pokemon.weight.Weight
 
-data class PokemonEntity(val name: String,
+data class PokemonEntity(override val name: String,
                          val stats: Stats,
                          val nationalNumber: Int,
                          val abilities: Abilities,
@@ -17,4 +17,4 @@ data class PokemonEntity(val name: String,
                          val captureRate: String,
                          val levelUpMoves: List<LevelUpMove>,
                          val tmMoves: List<TmMove>,
-                         val eggMoves: List<String>)
+                         val eggMoves: List<String>): Entity()

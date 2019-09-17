@@ -1,5 +1,5 @@
 package com.gablalib.pokedexcore.repositories.entities
 
-data class SpriteEntity(val name: String,
+data class SpriteEntity(override val name: String,
                         val normal: ByteArray,
-                        val shiny: ByteArray)
+                        val shiny: ByteArray): Entity()
