@@ -1,5 +1,5 @@
 package com.gablalib.pokedexcore.repositories.entities
 
-data class AbilityEntity(val name: String,
+data class AbilityEntity(override val name: String,
                          val description: String,
-                         val battleEffect: String)
+                         val battleEffect: String): Entity()
