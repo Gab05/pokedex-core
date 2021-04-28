@@ -1,15 +1,14 @@
-package services.requestHandlers
+package com.gablalib.pokedexcore.services.requestHandlers
 
 import com.gablalib.pokedexcore.controllers.requests.PokemonsRequest
 import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.filters.PokemonFilter
 import com.gablalib.pokedexcore.services.PokemonService
-import com.gablalib.pokedexcore.services.requestHandlers.PokemonRequestHandler
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.models.PokemonMocks
+import com.gablalib.pokedexcore.mocks.models.PokemonMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

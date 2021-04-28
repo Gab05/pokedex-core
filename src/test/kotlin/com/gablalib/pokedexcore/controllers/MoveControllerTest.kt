@@ -1,6 +1,5 @@
-package controllers
+package com.gablalib.pokedexcore.controllers
 
-import com.gablalib.pokedexcore.controllers.MoveController
 import com.gablalib.pokedexcore.controllers.requests.MovesRequest
 import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.services.requestHandlers.MoveRequestHandler
@@ -8,7 +7,7 @@ import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.models.MoveMocks
+import com.gablalib.pokedexcore.mocks.models.MoveMocks
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

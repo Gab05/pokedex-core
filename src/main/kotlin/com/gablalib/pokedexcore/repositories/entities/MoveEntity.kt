@@ -1,6 +1,6 @@
 package com.gablalib.pokedexcore.repositories.entities
 
-data class MoveEntity(val name: String,
+data class MoveEntity(override val name: String,
                       val type: String,
                       val category: String,
                       val pp: String,
@@ -8,4 +8,4 @@ data class MoveEntity(val name: String,
                       val accuracy: String,
                       val battleDescription: String,
                       val battleEffect: String,
-                      val battleEffectRate: String)
+                      val battleEffectRate: String): Entity()

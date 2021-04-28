@@ -1,4 +1,4 @@
-package mocks.entities
+package com.gablalib.pokedexcore.mocks.entities
 
 import com.gablalib.pokedexcore.models.move.LevelUpMove
 import com.gablalib.pokedexcore.models.move.TmMove

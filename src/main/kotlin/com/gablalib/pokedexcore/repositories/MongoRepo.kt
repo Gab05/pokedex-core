@@ -1,13 +1,16 @@
 package com.gablalib.pokedexcore.repositories
 
+import com.gablalib.pokedexcore.database.MongoDB
 import com.mongodb.client.MongoCollection
+import com.mongodb.client.MongoDatabase
 import org.bson.conversions.Bson
 
-interface MongoRepo<E> {
+abstract class MongoRepo<E>: Repository<E> {
 
-    val collection: MongoCollection<E>
+    protected val db: MongoDatabase = MongoDB.getDB()
+    abstract val collection: MongoCollection<E>
 
-    fun findAll(): Collection<E>
-    fun findByName(name: String): E?
-    fun findAllByFilter(mongoFilter: Bson): Collection<E>
+    abstract override fun findAll(): Collection<E>
+    abstract override fun findByName(name: String): E?
+    abstract fun findAllByFilter(mongoFilter: Bson): Collection<E>
 }

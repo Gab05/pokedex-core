@@ -1,17 +1,16 @@
-package services
+package com.gablalib.pokedexcore.services
 
 import com.gablalib.pokedexcore.factories.move.MoveFactory
 import com.gablalib.pokedexcore.factories.move.MoveMongoFilterFactory
 import com.gablalib.pokedexcore.filters.MoveFilter
 import com.gablalib.pokedexcore.repositories.move.MoveMongoRepo
-import com.gablalib.pokedexcore.services.MoveService
 import com.gablalib.pokedexcore.services.exceptions.MoveNotFoundException
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import mocks.entities.MoveEntityMocks
-import mocks.models.MoveMocks
+import com.gablalib.pokedexcore.mocks.entities.MoveEntityMocks
+import com.gablalib.pokedexcore.mocks.models.MoveMocks
 import org.bson.conversions.Bson
 import org.junit.After
 import org.junit.Before
