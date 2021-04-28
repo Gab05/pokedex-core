@@ -10,10 +10,8 @@ import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
 
 class PokemonEntityMocks {
     companion object {
-        fun basicPokemon(): PokemonEntity { return squirtle()
-        }
-        fun pokemonWithAMegaEvolution(): PokemonEntity { return garchomp()
-        }
+        fun basicPokemon(): PokemonEntity { return squirtle() }
+        fun pokemonWithAMegaEvolution(): PokemonEntity { return garchomp() }
         fun pokemonWithTwoMegaEvolutions(){}
         fun aMegaEvolution(){}
         fun aPokemonWithAnAlolanForm(){}
@@ -45,7 +43,8 @@ class PokemonEntityMocks {
                 ),
                 weight = Weight(lbs = "19.8", kg = "9"),
                 genderRatio = GenderRatio("87.5", "12.5"),
-                captureRate = "45"
+                captureRate = "45",
+                eggGroups = arrayListOf("water_1", "monster")
             )
         }
 
@@ -79,7 +78,8 @@ class PokemonEntityMocks {
                 ),
                 genderRatio = GenderRatio("50", "50"),
                 weight = Weight(lbs = "209.4", kg = "95"),
-                captureRate = "45"
+                captureRate = "45",
+                eggGroups = arrayListOf("dragon", "field")
             )
         }
     }

@@ -43,5 +43,6 @@ class PokemonFactoryTest {
         assertEquals(expected.weight, actual.weight)
         assertEquals(expected.genderRatio, actual.genderRatio)
         assertEquals(expected.baseStats, actual.baseStats)
+        assertEquals(expected.eggGroups, actual.eggGroups)
     }
 }
