@@ -17,5 +17,5 @@ data class PokemonEntity(override val name: String,
                          val captureRate: String,
                          val levelUpMoves: List<LevelUpMove>,
                          val tmMoves: List<TmMove>,
-                         val eggGroups: List<String>,
-                         val eggMoves: List<String>): Entity()
+                         val eggMoves: List<String>,
+                         val eggGroups: List<String>): Entity()
