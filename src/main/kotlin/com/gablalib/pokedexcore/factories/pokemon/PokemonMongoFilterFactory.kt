@@ -1,6 +1,8 @@
 package com.gablalib.pokedexcore.factories.pokemon
 
 import com.gablalib.pokedexcore.filters.PokemonFilter
+import com.gablalib.pokedexcore.models.move.LevelUpMove
+import com.gablalib.pokedexcore.models.move.TmMove
 import com.gablalib.pokedexcore.models.pokemon.ability.Abilities
 import com.gablalib.pokedexcore.repositories.entities.PokemonEntity
 import org.bson.conversions.Bson
@@ -37,9 +39,9 @@ object PokemonMongoFilterFactory {
     private fun filterMoves(move: String?): Bson {
         return if (move == null) EMPTY_BSON
         else or(
-            PokemonEntity::tmMoves contains move,
             PokemonEntity::eggMoves contains move,
-            PokemonEntity::levelUpMoves contains move
+            PokemonEntity::tmMoves / TmMove::move eq move,
+            PokemonEntity::levelUpMoves / LevelUpMove::move eq move
         )
     }
 

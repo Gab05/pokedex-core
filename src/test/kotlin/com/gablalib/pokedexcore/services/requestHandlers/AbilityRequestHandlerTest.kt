@@ -9,36 +9,39 @@ import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
 import com.gablalib.pokedexcore.mocks.models.AbilityMocks
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
 class AbilityRequestHandlerTest {
+    companion object {
+        private val roughSkin = AbilityMocks.roughSkin()
+        private val torrent = AbilityMocks.torrent()
+        private val allAbilities = arrayListOf(roughSkin, torrent)
+        private val filteredAbilities = arrayListOf(torrent)
 
-    private val roughSkin = AbilityMocks.roughSkin()
-    private val torrent = AbilityMocks.torrent()
-    private val allAbilities = arrayListOf(roughSkin, torrent)
-    private val filteredAbilities = arrayListOf(torrent)
+        private val nonNullFilter = AbilityFilter()
 
-    private val nonNullFilter = AbilityFilter()
+        private val simpleRequest = SimpleRequest(torrent.name)
+        private val nullFilterRequest = AbilitiesRequest()
+        private val abilitiesRequest = AbilitiesRequest(nonNullFilter)
 
-    private val simpleRequest = SimpleRequest(torrent.name)
-    private val nullFilterRequest = AbilitiesRequest()
-    private val abilitiesRequest = AbilitiesRequest(nonNullFilter)
+        @BeforeAll
+        @JvmStatic
+        fun init() {
+            mockkObject(AbilityService)
 
-    @Before
-    fun init() {
-        mockkObject(AbilityService)
+            every { AbilityService.getAllAbilities() } returns allAbilities
+            every { AbilityService.getAbilityByName(torrent.name) } returns torrent
+            every { AbilityService.getAbilitiesByFilter(nonNullFilter) } returns filteredAbilities
+        }
 
-        every { AbilityService.getAllAbilities() } returns allAbilities
-        every { AbilityService.getAbilityByName(torrent.name) } returns torrent
-        every { AbilityService.getAbilitiesByFilter(nonNullFilter) } returns filteredAbilities
-    }
-
-    @After
-    fun exit() {
-        unmockkAll()
+        @AfterAll
+        @JvmStatic
+        fun exit() {
+            unmockkAll()
+        }
     }
 
     @Test

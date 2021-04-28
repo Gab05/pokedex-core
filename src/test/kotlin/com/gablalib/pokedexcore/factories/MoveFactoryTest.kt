@@ -8,7 +8,7 @@ import com.gablalib.pokedexcore.repositories.entities.MoveEntity
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class MoveFactoryTest {
@@ -28,7 +28,7 @@ class MoveFactoryTest {
     private val MOVES_ENTITY = arrayListOf(A_MOVE_ENTITY, A_MOVE_ENTITY)
 
     @Test
-    fun whenCreatingEntities_thenCreateIsCalledOnEveryEntity() {
+    fun `when creating entities_then create is called on every entity`() {
         mockkObject(MoveFactory)
 
         MoveFactory.createAll(MOVES_ENTITY)

@@ -3,59 +3,62 @@ package com.gablalib.pokedexcore.services
 import com.gablalib.pokedexcore.factories.move.MoveFactory
 import com.gablalib.pokedexcore.factories.move.MoveMongoFilterFactory
 import com.gablalib.pokedexcore.filters.MoveFilter
+import com.gablalib.pokedexcore.mocks.entities.MoveEntityMocks
+import com.gablalib.pokedexcore.mocks.models.MoveMocks
 import com.gablalib.pokedexcore.repositories.move.MoveMongoRepo
 import com.gablalib.pokedexcore.services.exceptions.MoveNotFoundException
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import com.gablalib.pokedexcore.mocks.entities.MoveEntityMocks
-import com.gablalib.pokedexcore.mocks.models.MoveMocks
 import org.bson.conversions.Bson
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import org.litote.kmongo.EMPTY_BSON
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.expect
 
 class MoveServiceTest {
+    companion object {
+        private val tackle = MoveMocks.tackle()
+        private val agility = MoveMocks.agility()
+        private val allMoves = arrayListOf(tackle, agility)
+        private val filteredMoves = arrayListOf(tackle)
 
-    private val tackle = MoveMocks.tackle()
-    private val agility = MoveMocks.agility()
-    private val allMoves = arrayListOf(tackle, agility)
-    private val filteredMoves = arrayListOf(tackle)
+        private val tackleEntity = MoveEntityMocks.tackle()
+        private val agilityEntity = MoveEntityMocks.agility()
+        private val allEntities = arrayListOf(tackleEntity, agilityEntity)
+        private val filteredEntities = arrayListOf(tackleEntity)
 
-    private val tackleEntity = MoveEntityMocks.tackle()
-    private val agilityEntity = MoveEntityMocks.agility()
-    private val allEntities = arrayListOf(tackleEntity, agilityEntity)
-    private val filteredEntities = arrayListOf(tackleEntity)
+        private val moveFilter = MoveFilter()
+        private val mongoFilter: Bson = EMPTY_BSON
+        private val notAMoveName = "not_a_move"
 
-    private val moveFilter = MoveFilter()
-    private val mongoFilter: Bson = EMPTY_BSON
-    private val notAMoveName = "not_a_move"
+        @BeforeAll
+        @JvmStatic
+        fun init() {
+            mockkObject(MoveMongoRepo)
+            every { MoveMongoRepo.findAll() } returns allEntities
+            every { MoveMongoRepo.findByName(tackle.name) } returns tackleEntity
+            every { MoveMongoRepo.findByName(notAMoveName) } returns null
+            every { MoveMongoRepo.findAllByFilter(mongoFilter) } returns filteredEntities
 
-    @Before
-    fun init() {
-        mockkObject(MoveMongoRepo)
-        every { MoveMongoRepo.findAll() } returns allEntities
-        every { MoveMongoRepo.findByName(tackle.name) } returns tackleEntity
-        every { MoveMongoRepo.findByName(notAMoveName) } returns null
-        every { MoveMongoRepo.findAllByFilter(mongoFilter) } returns filteredEntities
+            mockkObject(MoveFactory)
+            every { MoveFactory.create(tackleEntity) } returns tackle
+            every { MoveFactory.createAll(allEntities) } returns allMoves
+            every { MoveFactory.createAll(arrayListOf(tackleEntity)) } returns filteredMoves
 
-        mockkObject(MoveFactory)
-        every { MoveFactory.create(tackleEntity) } returns tackle
-        every { MoveFactory.createAll(allEntities) } returns allMoves
-        every { MoveFactory.createAll(arrayListOf(tackleEntity)) } returns filteredMoves
+            mockkObject(MoveMongoFilterFactory)
+            every { MoveMongoFilterFactory.create(moveFilter) } returns mongoFilter
+        }
 
-        mockkObject(MoveMongoFilterFactory)
-        every { MoveMongoFilterFactory.create(moveFilter) } returns mongoFilter
-    }
-
-    @After
-    fun exit() {
-        unmockkAll()
+        @AfterAll
+        @JvmStatic
+        fun exit() {
+            unmockkAll()
+        }
     }
 
     @Test

@@ -3,58 +3,61 @@ package com.gablalib.pokedexcore.services
 import com.gablalib.pokedexcore.factories.pokemon.PokemonFactory
 import com.gablalib.pokedexcore.factories.pokemon.PokemonMongoFilterFactory
 import com.gablalib.pokedexcore.filters.PokemonFilter
+import com.gablalib.pokedexcore.mocks.entities.PokemonEntityMocks
+import com.gablalib.pokedexcore.mocks.models.PokemonMocks
 import com.gablalib.pokedexcore.repositories.pokemon.PokemonMongoRepo
 import com.gablalib.pokedexcore.services.exceptions.PokemonNotFoundException
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import com.gablalib.pokedexcore.mocks.entities.PokemonEntityMocks
-import com.gablalib.pokedexcore.mocks.models.PokemonMocks
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import org.litote.kmongo.EMPTY_BSON
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.expect
 
 class PokemonServiceTest {
+    companion object {
+        private val squirtleEntity = PokemonEntityMocks.squirtle()
+        private val garchompEntity = PokemonEntityMocks.garchomp()
+        private val filteredEntities = arrayListOf(squirtleEntity)
+        private val allEntities = arrayListOf(squirtleEntity, garchompEntity)
 
-    private val squirtleEntity = PokemonEntityMocks.squirtle()
-    private val garchompEntity = PokemonEntityMocks.garchomp()
-    private val filteredEntities = arrayListOf(squirtleEntity)
-    private val allEntities = arrayListOf(squirtleEntity, garchompEntity)
+        private val squirtle = PokemonMocks.squirtle()
+        private val garchomp = PokemonMocks.garchomp()
+        private val filteredPokemons = arrayListOf(squirtle)
+        private val allPokemons = arrayListOf(squirtle, garchomp)
 
-    private val squirtle = PokemonMocks.squirtle()
-    private val garchomp = PokemonMocks.garchomp()
-    private val filteredPokemons = arrayListOf(squirtle)
-    private val allPokemons = arrayListOf(squirtle, garchomp)
+        private val pokemonFilter = PokemonFilter()
+        private val mongoFilter = EMPTY_BSON
+        private val notAPokemonName = "bru"
 
-    private val pokemonFilter = PokemonFilter()
-    private val mongoFilter = EMPTY_BSON
-    private val notAPokemonName = "bru"
+        @BeforeAll
+        @JvmStatic
+        fun init() {
+            mockkObject(PokemonMongoRepo)
+            every { PokemonMongoRepo.findAll() } returns allEntities
+            every { PokemonMongoRepo.findAllByFilter(mongoFilter) } returns filteredEntities
+            every { PokemonMongoRepo.findByName(squirtle.name) } returns squirtleEntity
+            every { PokemonMongoRepo.findByName(notAPokemonName) } returns null
 
-    @Before
-    fun init() {
-        mockkObject(PokemonMongoRepo)
-        every { PokemonMongoRepo.findAll() } returns allEntities
-        every { PokemonMongoRepo.findAllByFilter(mongoFilter) } returns filteredEntities
-        every { PokemonMongoRepo.findByName(squirtle.name) } returns squirtleEntity
-        every { PokemonMongoRepo.findByName(notAPokemonName) } returns null
+            mockkObject(PokemonFactory)
+            every { PokemonFactory.createAll(allEntities) } returns allPokemons
+            every { PokemonFactory.createAll(filteredEntities) } returns filteredPokemons
+            every { PokemonFactory.create(squirtleEntity) } returns squirtle
 
-        mockkObject(PokemonFactory)
-        every { PokemonFactory.createAll(allEntities) } returns allPokemons
-        every { PokemonFactory.createAll(filteredEntities) } returns filteredPokemons
-        every { PokemonFactory.create(squirtleEntity) } returns squirtle
+            mockkObject(PokemonMongoFilterFactory)
+            every { PokemonMongoFilterFactory.create(pokemonFilter) } returns mongoFilter
+        }
 
-        mockkObject(PokemonMongoFilterFactory)
-        every { PokemonMongoFilterFactory.create(pokemonFilter) } returns mongoFilter
-    }
-
-    @After
-    fun exit() {
-        unmockkAll()
+        @AfterAll
+        @JvmStatic
+        fun exit() {
+            unmockkAll()
+        }
     }
 
     @Test

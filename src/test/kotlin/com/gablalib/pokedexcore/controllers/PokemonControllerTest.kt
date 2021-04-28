@@ -2,36 +2,39 @@ package com.gablalib.pokedexcore.controllers
 
 import com.gablalib.pokedexcore.controllers.requests.PokemonsRequest
 import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
+import com.gablalib.pokedexcore.mocks.models.PokemonMocks
 import com.gablalib.pokedexcore.services.requestHandlers.PokemonRequestHandler
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import com.gablalib.pokedexcore.mocks.models.PokemonMocks
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
 class PokemonControllerTest {
+    companion object {
+        private val aPokemon = PokemonMocks.squirtle()
+        private val anotherPokemon = PokemonMocks.garchomp()
+        private val pokemons = arrayListOf(aPokemon, anotherPokemon)
+        private val aPokemonRequest = SimpleRequest(aPokemon.name)
+        private val pokemonsRequest = PokemonsRequest()
 
-    private val aPokemon = PokemonMocks.squirtle()
-    private val anotherPokemon = PokemonMocks.garchomp()
-    private val pokemons = arrayListOf(aPokemon, anotherPokemon)
-    private val aPokemonRequest = SimpleRequest(aPokemon.name)
-    private val pokemonsRequest = PokemonsRequest()
+        @BeforeAll
+        @JvmStatic
+        fun init() {
+            mockkObject(PokemonRequestHandler)
 
-    @Before
-    fun init() {
-        mockkObject(PokemonRequestHandler)
+            every { PokemonRequestHandler.handlePokemonRequest(aPokemonRequest) } returns aPokemon
+            every { PokemonRequestHandler.handlePokemonsRequest(any()) } returns pokemons
+        }
 
-        every { PokemonRequestHandler.handlePokemonRequest(aPokemonRequest) } returns aPokemon
-        every { PokemonRequestHandler.handlePokemonsRequest(any()) } returns pokemons
-    }
-
-    @After
-    fun exit() {
-        unmockkAll()
+        @AfterAll
+        @JvmStatic
+        fun exit() {
+            unmockkAll()
+        }
     }
 
     @Test

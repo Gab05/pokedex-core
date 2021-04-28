@@ -6,28 +6,31 @@ import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
 class SpriteRequestHandlerTest {
+    companion object {
+        private val simpleRequest = SimpleRequest("garchomp")
+        private val normalSprite = ByteArray(0)
+        private val shinySprite = ByteArray(1)
 
-    private val simpleRequest = SimpleRequest("garchomp")
-    private val normalSprite = ByteArray(0)
-    private val shinySprite = ByteArray(1)
+        @BeforeAll
+        @JvmStatic
+        fun init() {
+            mockkObject(SpriteService)
 
-    @Before
-    fun init() {
-        mockkObject(SpriteService)
+            every { SpriteService.getNormalPokemonSprite(simpleRequest.name) } returns normalSprite
+            every { SpriteService.getShinyPokemonSprite(simpleRequest.name) } returns shinySprite
+        }
 
-        every { SpriteService.getNormalPokemonSprite(simpleRequest.name) } returns normalSprite
-        every { SpriteService.getShinyPokemonSprite(simpleRequest.name) } returns shinySprite
-    }
-
-    @After
-    fun exit() {
-        unmockkAll()
+        @AfterAll
+        @JvmStatic
+        fun exit() {
+            unmockkAll()
+        }
     }
 
     @Test

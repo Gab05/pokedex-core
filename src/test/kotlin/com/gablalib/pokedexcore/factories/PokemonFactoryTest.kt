@@ -5,7 +5,7 @@ import io.mockk.mockkObject
 import io.mockk.verify
 import com.gablalib.pokedexcore.mocks.entities.PokemonEntityMocks
 import com.gablalib.pokedexcore.mocks.models.PokemonMocks
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class PokemonFactoryTest {

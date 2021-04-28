@@ -3,42 +3,45 @@ package com.gablalib.pokedexcore.services.requestHandlers
 import com.gablalib.pokedexcore.controllers.requests.MovesRequest
 import com.gablalib.pokedexcore.controllers.requests.SimpleRequest
 import com.gablalib.pokedexcore.filters.MoveFilter
+import com.gablalib.pokedexcore.mocks.models.MoveMocks
 import com.gablalib.pokedexcore.services.MoveService
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import com.gablalib.pokedexcore.mocks.models.MoveMocks
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
 class MoveRequestHandlerTest {
+    companion object {
+        private val tackle = MoveMocks.tackle()
+        private val agility = MoveMocks.agility()
+        private val allMoves = arrayListOf(tackle, agility)
+        private val filteredMoves = arrayListOf(tackle)
 
-    private val tackle = MoveMocks.tackle()
-    private val agility = MoveMocks.agility()
-    private val allMoves = arrayListOf(tackle, agility)
-    private val filteredMoves = arrayListOf(tackle)
+        private val nonNullFilter = MoveFilter()
 
-    private val nonNullFilter = MoveFilter()
+        private val simpleRequest = SimpleRequest(tackle.name)
+        private val movesRequest = MovesRequest(nonNullFilter)
+        private val nullFilterRequest = MovesRequest()
 
-    private val simpleRequest = SimpleRequest(tackle.name)
-    private val movesRequest = MovesRequest(nonNullFilter)
-    private val nullFilterRequest = MovesRequest()
+        @BeforeAll
+        @JvmStatic
+        fun init() {
+            mockkObject(MoveService)
 
-    @Before
-    fun init() {
-        mockkObject(MoveService)
+            every { MoveService.getAllMoves() } returns allMoves
+            every { MoveService.getMoveByName(simpleRequest.name) } returns tackle
+            every { MoveService.getMovesByFilter(nonNullFilter) } returns filteredMoves
+        }
 
-        every { MoveService.getAllMoves() } returns allMoves
-        every { MoveService.getMoveByName(simpleRequest.name) } returns tackle
-        every { MoveService.getMovesByFilter(nonNullFilter) } returns filteredMoves
-    }
-
-    @After
-    fun exit() {
-        unmockkAll()
+        @AfterAll
+        @JvmStatic
+        fun exit() {
+            unmockkAll()
+        }
     }
 
     @Test

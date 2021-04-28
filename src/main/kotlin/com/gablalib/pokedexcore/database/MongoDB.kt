@@ -1,7 +1,7 @@
 package com.gablalib.pokedexcore.database
 
 import com.mongodb.ConnectionString
-import com.mongodb.MongoClient
+import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoDatabase
 import org.litote.kmongo.KMongo
 

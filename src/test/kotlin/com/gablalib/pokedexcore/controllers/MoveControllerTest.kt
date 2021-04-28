@@ -8,29 +8,32 @@ import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
 import com.gablalib.pokedexcore.mocks.models.MoveMocks
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import kotlin.test.expect
 
 class MoveControllerTest {
+    companion object {
+        private val move = MoveMocks.tackle()
+        private val moves = arrayListOf(move)
+        private val aMoveRequest = SimpleRequest(move.name)
+        private val aMovesRequest = MovesRequest()
 
-    private val move = MoveMocks.tackle()
-    private val moves = arrayListOf(move)
-    private val aMoveRequest = SimpleRequest(move.name)
-    private val aMovesRequest = MovesRequest()
+        @BeforeAll
+        @JvmStatic
+        fun init() {
+            mockkObject(MoveRequestHandler)
 
-    @Before
-    fun init() {
-        mockkObject(MoveRequestHandler)
+            every { MoveRequestHandler.handleMoveRequest(aMoveRequest) } returns move
+            every { MoveRequestHandler.handleMovesRequest(aMovesRequest) } returns moves
+        }
 
-        every { MoveRequestHandler.handleMoveRequest(aMoveRequest) } returns move
-        every { MoveRequestHandler.handleMovesRequest(aMovesRequest) } returns moves
-    }
-
-    @After
-    fun exit() {
-        unmockkAll()
+        @AfterAll
+        @JvmStatic
+        fun exit() {
+            unmockkAll()
+        }
     }
 
     @Test

@@ -3,58 +3,61 @@ package com.gablalib.pokedexcore.services
 import com.gablalib.pokedexcore.factories.move.AbilityFactory
 import com.gablalib.pokedexcore.factories.move.AbilityMongoFilterFactory
 import com.gablalib.pokedexcore.filters.AbilityFilter
+import com.gablalib.pokedexcore.mocks.entities.AbilityEntityMocks
+import com.gablalib.pokedexcore.mocks.models.AbilityMocks
 import com.gablalib.pokedexcore.repositories.ability.AbilityMongoRepo
 import com.gablalib.pokedexcore.services.exceptions.AbilityNotFoundException
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import com.gablalib.pokedexcore.mocks.entities.AbilityEntityMocks
-import com.gablalib.pokedexcore.mocks.models.AbilityMocks
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import org.litote.kmongo.EMPTY_BSON
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.expect
 
 class AbilityServiceTest {
+    companion object {
+        private val roughSkin = AbilityMocks.roughSkin()
+        private val torrent = AbilityMocks.torrent()
+        private val allAbilities = arrayListOf(roughSkin, torrent)
+        private val filteredAbilities = arrayListOf(roughSkin)
 
-    private val roughSkin = AbilityMocks.roughSkin()
-    private val torrent = AbilityMocks.torrent()
-    private val allAbilities = arrayListOf(roughSkin, torrent)
-    private val filteredAbilities = arrayListOf(roughSkin)
+        private val roughSkinEntity = AbilityEntityMocks.roughSkin()
+        private val torrentEntity = AbilityEntityMocks.torrent()
+        private val allEntities = arrayListOf(roughSkinEntity, torrentEntity)
+        private val filteredEntities = arrayListOf(roughSkinEntity)
 
-    private val roughSkinEntity = AbilityEntityMocks.roughSkin()
-    private val torrentEntity = AbilityEntityMocks.torrent()
-    private val allEntities = arrayListOf(roughSkinEntity, torrentEntity)
-    private val filteredEntities = arrayListOf(roughSkinEntity)
+        private val abilityFilter = AbilityFilter()
+        private val mongoFilter = EMPTY_BSON
+        private val notAnAbilityName = "whatever"
 
-    private val abilityFilter = AbilityFilter()
-    private val mongoFilter = EMPTY_BSON
-    private val notAnAbilityName = "whatever"
+        @BeforeAll
+        @JvmStatic
+        fun init() {
+            mockkObject(AbilityMongoRepo)
+            every { AbilityMongoRepo.findAll() } returns allEntities
+            every { AbilityMongoRepo.findByName(roughSkin.name) } returns roughSkinEntity
+            every { AbilityMongoRepo.findAllByFilter(mongoFilter) } returns filteredEntities
 
-    @Before
-    fun init() {
-        mockkObject(AbilityMongoRepo)
-        every { AbilityMongoRepo.findAll() } returns allEntities
-        every { AbilityMongoRepo.findByName(roughSkin.name) } returns roughSkinEntity
-        every { AbilityMongoRepo.findAllByFilter(mongoFilter) } returns filteredEntities
+            mockkObject(AbilityFactory)
+            every { AbilityFactory.create(roughSkinEntity) } returns roughSkin
+            every { AbilityFactory.create(torrentEntity) } returns torrent
+            every { AbilityFactory.createAll(allEntities) } returns allAbilities
+            every { AbilityFactory.createAll(filteredEntities) } returns filteredAbilities
 
-        mockkObject(AbilityFactory)
-        every { AbilityFactory.create(roughSkinEntity) } returns roughSkin
-        every { AbilityFactory.create(torrentEntity) } returns torrent
-        every { AbilityFactory.createAll(allEntities) } returns allAbilities
-        every { AbilityFactory.createAll(filteredEntities) } returns filteredAbilities
+            mockkObject(AbilityMongoFilterFactory)
+            every { AbilityMongoFilterFactory.create(abilityFilter) } returns mongoFilter
+        }
 
-        mockkObject(AbilityMongoFilterFactory)
-        every { AbilityMongoFilterFactory.create(abilityFilter) } returns mongoFilter
-    }
-
-    @After
-    fun exit() {
-        unmockkAll()
+        @AfterAll
+        @JvmStatic
+        fun exit() {
+            unmockkAll()
+        }
     }
 
     @Test
