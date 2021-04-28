@@ -17,4 +17,5 @@ data class PokemonEntity(val name: String,
                          val captureRate: String,
                          val levelUpMoves: List<LevelUpMove>,
                          val tmMoves: List<TmMove>,
-                         val eggMoves: List<String>)
+                         val eggMoves: List<String>,
+                         val eggGroups: List<String>)

@@ -21,6 +21,7 @@ object PokemonFactory {
         weight = entity.weight,
         captureRate = entity.captureRate,
         genderRatio = entity.genderRatio,
-        abilities = entity.abilities
+        abilities = entity.abilities,
+        eggGroups = ArrayList(entity.eggGroups.map { eggGroup -> eggGroup })
     )
 }

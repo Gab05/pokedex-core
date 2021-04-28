@@ -18,7 +18,8 @@ data class Pokemon(val name: String,
                    val eggMoves: List<String> = ArrayList(),
                    val baseStats: Stats = Stats(),
                    val genderRatio: GenderRatio = GenderRatio(),
-                   val captureRate: String = "255") {
+                   val captureRate: String = "255",
+                   val eggGroups: List<String> = ArrayList()) {
 
     fun isOfType(type: Type): Boolean {
         return typing.contains(type)
@@ -36,7 +37,12 @@ data class Pokemon(val name: String,
             eggMoves == other.eggMoves &&
             baseStats == other.baseStats &&
             genderRatio == other.genderRatio &&
-            captureRate == other.captureRate
+            captureRate == other.captureRate &&
+            eggGroups == other.eggGroups
         } else false
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
     }
 }
