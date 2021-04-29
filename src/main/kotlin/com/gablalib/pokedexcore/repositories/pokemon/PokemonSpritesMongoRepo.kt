@@ -1,7 +1,6 @@
 package com.gablalib.pokedexcore.repositories.pokemon
 
 import com.gablalib.pokedexcore.repositories.MongoRepo
-import com.gablalib.pokedexcore.repositories.Repository
 import com.gablalib.pokedexcore.repositories.entities.SpriteEntity
 import org.bson.conversions.Bson
 import org.litote.kmongo.eq
