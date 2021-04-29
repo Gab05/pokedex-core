@@ -41,6 +41,7 @@ class AbilityServiceTest {
             mockkObject(AbilityMongoRepo)
             every { AbilityMongoRepo.findAll() } returns allEntities
             every { AbilityMongoRepo.findByName(roughSkin.name) } returns roughSkinEntity
+            every { AbilityMongoRepo.findByName(notAnAbilityName) } returns null
             every { AbilityMongoRepo.findAllByFilter(mongoFilter) } returns filteredEntities
 
             mockkObject(AbilityFactory)
