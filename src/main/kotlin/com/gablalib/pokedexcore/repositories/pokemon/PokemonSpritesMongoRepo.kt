@@ -8,7 +8,7 @@ import org.litote.kmongo.eq
 import org.litote.kmongo.findOne
 import org.litote.kmongo.getCollection
 
-object PokemonSpritesMongoRepo: MongoRepo<SpriteEntity>(), Repository<SpriteEntity> {
+object PokemonSpritesMongoRepo: MongoRepo<SpriteEntity>() {
     private const val COLLECTION_NAME = "sprites"
 
     override val collection = this.db.getCollection<SpriteEntity>(COLLECTION_NAME)
