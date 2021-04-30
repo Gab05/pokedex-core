@@ -1,1 +1,1 @@
-web: java -Xmx2048M -jar build/lib/pokedexcore-1.0-SNAPSHOT.jar
+web: java -Xmx2048M -jar build/lib/*.jar
