@@ -1,1 +1,1 @@
-web: java -Xmx2048M -jar build/lib/*.jar
+web: ls -la && java -Xmx512M -jar ./build/lib/*.jar
