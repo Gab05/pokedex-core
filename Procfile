@@ -1,1 +1,1 @@
-web: ./gradlew bootRun
+web: java -Xmx2048M -jar build/lib/pokedexcore-1.0-SNAPSHOT.jar
