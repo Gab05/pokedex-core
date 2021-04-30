@@ -1,6 +1,6 @@
-**/build
-**/out
+build
+out
 
-/.gradle
-/.idea
-/sprites
+.gradle
+.idea
+**/sprites
