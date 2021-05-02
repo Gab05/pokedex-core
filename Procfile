@@ -1,1 +1,1 @@
-web: ls -la && java -Xmx512M -jar ./build/libs/*.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/pokedexcore-1.0-SNAPSHOT.jar
